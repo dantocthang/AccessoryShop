@@ -1,17 +1,19 @@
-import React from "react";
+import React from 'react'
+import Header from '../../components/Layout/Header'
+import Footer from '../../components/Layout/Footer'
 
 interface Props {
-  children: React.ReactNode;
+    children: React.ReactNode
 }
 
 function DefaultLayout({ children }: Props) {
-  return (
-    <div>
-      <div className="">HEADER</div>
-      {children}
-      <div className="">FOOTER</div>
-    </div>
-  );
+    return (
+        <div>
+            <Header></Header>
+            <div className="grid wide">{children}</div>
+            <Footer></Footer>
+        </div>
+    )
 }
 
-export default DefaultLayout;
+export default DefaultLayout

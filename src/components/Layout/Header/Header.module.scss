@@ -1,0 +1,112 @@
+.wrapper {
+    background-color: var(--primary-1);
+    font-family: 'Poppins', sans-serif;
+    color: var(--white);
+}
+
+.inner {
+    height: var(--header-height);
+    padding-block: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.5rem;
+}
+
+.nav-item {
+    &:hover {
+        color: var(--primary-2);
+    }
+    font-size: 14px;
+}
+
+.auth {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+}
+
+.logo {
+    width: 144px;
+}
+
+.tools {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+}
+
+.contact {
+    text-align: right;
+}
+
+.phone {
+    font-size: 1.05rem;
+    color: var(--primary-2);
+    font-weight: 500;
+}
+
+.time {
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.tool {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.icon {
+    font-size: 1.5rem;
+    color: var(--primary-2);
+}
+
+.cart-wrapper {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    ;
+}
+
+.cart-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    translate: 40% -40%;
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-2);
+    background-color: var(--primary-1);
+    border: 1px solid var(--primary-2);
+}
+
+.tool-text {
+    font-weight: 500;
+    margin-left: 6px;
+}

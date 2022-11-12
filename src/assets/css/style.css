@@ -1,7 +1,78 @@
-:root{
-    --primary-1: rgb(0, 70, 190);
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto:wght@400;500;700;900&display=swap');
+
+:root {
+    --primary-1: rgb(50, 123, 249);
     --primary-2: rgb(255, 224, 0);
     --white: rgb(255, 255, 255);
     --text-light: #777;
+    --black: rgb(48, 48, 48);
+    --border-color: #e9e7e7;
+
+
+    --header-height: 110px;
 }
 
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+    font-family: Roboto;
+}
+
+ol, ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a {
+    text-decoration: none;
+    color: unset;
+}
+
+/* Field error */
+.field-error {
+    font-size: 13px;
+    color: #eb3d4e;
+    margin-top: 4px;
+}
