@@ -9,7 +9,7 @@
     --border-color: #e9e7e7;
 
 
-    --header-height: 110px;
+    --header-height: 100px;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -68,6 +68,18 @@ table {
 a {
     text-decoration: none;
     color: unset;
+}
+
+.h-full{
+    height: 100%;
+}
+
+.d-flex{
+    display: flex;
+}
+
+.flex-align-center{
+    align-items: center
 }
 
 /* Field error */

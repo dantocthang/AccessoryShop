@@ -8,12 +8,13 @@ import './assets/css/style.css'
 
 function App() {
     return (
-        <div className="App">
+        <div className='App'>
             <Router>
                 <Routes>
                     {routes.map((r, index) => {
                         let Component = r.component
                         let Layout = DefaultLayout
+                        if (r.layout) Layout = r.layout
                         let Content = (
                             <Layout>
                                 <Component />
