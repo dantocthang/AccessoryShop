@@ -10,6 +10,7 @@
 
 
     --header-height: 100px;
+    --padding-block: 40px;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -70,15 +71,19 @@ a {
     color: unset;
 }
 
-.h-full{
+a:hover {
+    color: unset;
+}
+
+.h-full {
     height: 100%;
 }
 
-.d-flex{
+.d-flex {
     display: flex;
 }
 
-.flex-align-center{
+.flex-align-center {
     align-items: center
 }
 

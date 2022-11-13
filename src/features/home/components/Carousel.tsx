@@ -20,8 +20,8 @@ function CarouselComp() {
             <div className={cl('carousel-item')}>
                 <img src={banner2} alt='' className={cl('banner')} />
                 <div className={cl('carousel-content')}>
-                    <div>Your world</div>
-                    <div>Your choices</div>
+                    <div>Enjoy</div>
+                    <div>Immersive experiences</div>
                 </div>
             </div>
         </Carousel>

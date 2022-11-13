@@ -1,4 +1,4 @@
-import Item from './Item'
+import Item from '../../../components/__combined/ProductItem'
 
 import classNames from 'classnames/bind'
 import styles from '../Home.module.scss'

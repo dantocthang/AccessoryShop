@@ -10,6 +10,7 @@
     padding: 8px 24px;
     font-family: Roboto, "Helvetica Neue", Helvetica, Arial;
     box-sizing: border-box;
+    cursor: pointer;
 
     &:hover {
         background-color: black;
@@ -20,7 +21,8 @@
         border: none;
 
         &:hover {
-            background-color: #063078
+            background-color: #063078;
+            color: var(--white);
         }
     }
 

@@ -1,12 +1,14 @@
+import { Link } from 'react-router-dom'
+
 import Button from '../../../components/__atom/Button'
 
 import classNames from 'classnames/bind'
-import styles from '../Home.module.scss'
+import styles from './ProductItem.module.scss'
 const cl = classNames.bind(styles)
 
-function Item() {
+function ProductItem() {
     return (
-        <div className={cl('item-wrapper')}>
+        <Link to='/' className={cl('item-wrapper')}>
             <img
                 src='https://product.hstatic.net/1000026716/product/ban-phim-co-akko-pc75b-plus-v2-black-gold-11_3d105b6dfbe2492284562002c6f995f5.jpg'
                 alt=''
@@ -19,8 +21,9 @@ function Item() {
                     Add to cart
                 </Button>
             </div>
-        </div>
+            <div className={cl('category')}>Keyboard</div>
+        </Link>
     )
 }
 
-export default Item
+export default ProductItem
