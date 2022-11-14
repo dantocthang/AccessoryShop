@@ -11,9 +11,12 @@
     font-family: Roboto, "Helvetica Neue", Helvetica, Arial;
     box-sizing: border-box;
     cursor: pointer;
+    display: block;
+    
 
     &:hover {
         background-color: black;
+        color: var(--white);
     }
 
     &.primary {
@@ -38,12 +41,19 @@
         }
     }
 
+    &.icon {
+        display: flex;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
     &.small {
         padding: 6px 16px;
     }
 
     &.large {
         padding: 12px 32px;
+        font-size: 16px;
     }
 
 

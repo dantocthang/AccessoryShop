@@ -1,8 +1,6 @@
-import React from 'react'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-regular-svg-icons'
-import { Tooltip, Popover } from 'antd'
+import { Popover } from 'antd'
 import {
     SearchOutlined,
     ShoppingCartOutlined,
@@ -11,12 +9,15 @@ import {
 
 import UserMenu from '../../__combined/UserMenu'
 import MiniCart from '../../__combined/MiniCart'
+import Search from '../../__atom/Search'
+
 import logo from '../../../assets/img/global/logo_primary.png'
 import classNames from 'classnames/bind'
 import styles from './Header.module.scss'
 const cl = classNames.bind(styles)
 
 function Header() {
+    const [searchVisible, setSearchVisible] = useState(false)
     return (
         <div className={cl('wrapper')}>
             <div className={cl('inner')}>
@@ -24,14 +25,11 @@ function Header() {
                     <div className={cl('top')}>
                         <img src={logo} alt='' className={cl('logo')} />
                         <div className={cl('funcs')}>
-                            <div className={cl('func')}>
-                                <Popover
-                                    trigger={'click'}
-                                    content={<div>Hello</div>}
-                                    title={null}
-                                >
-                                    <SearchOutlined className={cl('icon')} />
-                                </Popover>
+                            <div
+                                onClick={() => setSearchVisible(true)}
+                                className={cl('func')}
+                            >
+                                <SearchOutlined className={cl('icon')} />
                             </div>
                             <div className={cl('func')}>
                                 <Popover
@@ -39,7 +37,6 @@ function Header() {
                                     content={<MiniCart />}
                                     title={null}
                                     placement='bottomRight'
-
                                 >
                                     <ShoppingCartOutlined
                                         className={cl('icon')}
@@ -98,6 +95,12 @@ function Header() {
                         </div>
                     </div>
                 </div>
+                <Search
+                    onClose={() => setSearchVisible(false)}
+                    onSearch={() => {}}
+                    visible={searchVisible}
+                    className={cl('search')}
+                />
             </div>
         </div>
     )

@@ -30,17 +30,17 @@ function Footer() {
                         </div>
                         <div className="col l-3 m-4 c-6">
                             <div className={cl('column')}>
-                                <div className={cl('heading')}>Categories</div>
+                                <div className={cl('heading')}>Brands</div>
                                 <ul className={cl('list')}>
                                     <li>
                                         <Link to="/" className={cl('item')}>
-                                            Casual
+                                            Akko
                                         </Link>
                                     </li>
                                     <li>
                                         {' '}
                                         <Link to="/" className={cl('item')}>
-                                            Modern
+                                            Logitech
                                         </Link>
                                     </li>
                                 </ul>

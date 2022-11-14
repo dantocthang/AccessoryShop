@@ -9,6 +9,7 @@ interface Props {
     type?: string // primary, outline
     to?: string
     size?: string // small, large
+    leftIcon?: React.ReactNode
     children: React.ReactNode
     className?: string
     onClick?: Function
@@ -18,6 +19,7 @@ function Button({
     type,
     size,
     to,
+    leftIcon,
     onClick,
     children,
     className,
@@ -28,10 +30,13 @@ function Button({
 
     return (
         <Component
-            className={`${className} ${cl('wrapper', type, size)}`}
+            className={`${className} ${cl('wrapper', type, size, {
+                icon: !!leftIcon,
+            })}`}
             to={to}
             {...passwdProps}
         >
+            {leftIcon}
             {children}
         </Component>
     )

@@ -1,0 +1,18 @@
+.wrapper{
+    background-color: var(--primary-1);
+    height: var(--admin-header-height);
+    padding-inline: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--white);
+    z-index: 2;
+}
+
+.logo{
+    width: 100px;
+}
+
+.icon{
+    font-size: 1.5rem;
+}
