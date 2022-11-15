@@ -8,45 +8,45 @@ const cl = classNames.bind(styles)
 function Footer() {
     return (
         <div className={cl('wrapper')}>
-            <div className="grid wide">
+            <div className='grid wide'>
                 <div className={cl('inner')}>
-                    <div className="row">
-                        <div className="col l-3 m-4 c-6">
+                    <div className='row'>
+                        <div className='col l-3 m-4 c-6'>
                             <div className={cl('column')}>
                                 <div className={cl('heading')}>Categories</div>
                                 <ul className={cl('list')}>
                                     <li>
-                                        <Link to="/" className={cl('item')}>
+                                        <Link to='/' className={cl('item')}>
                                             Casual
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/" className={cl('item')}>
+                                        <Link to='/' className={cl('item')}>
                                             Modern
                                         </Link>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <div className="col l-3 m-4 c-6">
+                        <div className='col l-3 m-4 c-6'>
                             <div className={cl('column')}>
                                 <div className={cl('heading')}>Brands</div>
                                 <ul className={cl('list')}>
                                     <li>
-                                        <Link to="/" className={cl('item')}>
+                                        <Link to='/' className={cl('item')}>
                                             Akko
                                         </Link>
                                     </li>
                                     <li>
                                         {' '}
-                                        <Link to="/" className={cl('item')}>
+                                        <Link to='/' className={cl('item')}>
                                             Logitech
                                         </Link>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <div className="col l-3 m-4 c-6">
+                        <div className='col l-3 m-4 c-6'>
                             <div className={cl('column')}>
                                 <div className={cl('heading')}>About us</div>
                                 <div className={cl('text')}>
@@ -58,7 +58,7 @@ function Footer() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col l-3 m-4 c-6">
+                        <div className='col l-3 m-4 c-6'>
                             <div className={cl('column')}>
                                 <div className={cl('heading')}>Contact</div>
                                 <div className={cl('text')}>
@@ -85,7 +85,7 @@ function Footer() {
                                         <span className={cl('label')}>
                                             E-mail:
                                         </span>
-                                        <Link className={cl('item')} to="/">
+                                        <Link className={cl('item')} to='/'>
                                             info@gmail.com
                                         </Link>
                                     </div>

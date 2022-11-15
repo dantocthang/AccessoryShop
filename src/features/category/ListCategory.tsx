@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Table } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 
@@ -30,7 +31,7 @@ const columns: ColumnsType<DataType> = [
         render: (_, record) => (
             <div className='d-flex flex-align-center gap-3'>
                 <Edit
-                    to='/admin/brand/3'
+                    to='/admin/category/1'
                     onClick={() => console.log('hi')}
                 ></Edit>
                 <Delete onClick={() => console.log('delete')} />
@@ -47,19 +48,19 @@ const data: DataType[] = [
     },
 ]
 
-function ListBrand() {
+function ListCategory() {
     return (
-        <Wrapper title='Brands' description={`Manage all partners's brand`}>
+        <Wrapper title='Categories' description={`Manage all categories`}>
             <Button
                 type='primary'
-                to='/admin/brand/create'
+                to='/admin/category/create'
                 className='mt-4 mb-4'
             >
-                Add new brand
+                Add new category
             </Button>
             <Table columns={columns} dataSource={data} pagination={false} />
         </Wrapper>
     )
 }
 
-export default ListBrand
+export default ListCategory

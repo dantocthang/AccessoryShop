@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import Button from '../../../components/__atom/Button'
 
-const BrandSchema = Yup.object().shape({
+const CategorySchema = Yup.object().shape({
     name: Yup.string().min(1).required('Required'),
 })
 
@@ -18,7 +18,7 @@ function FormComp({ edit, handleSubmit = () => {} }: Props) {
             initialValues={{ name: '' }}
             enableReinitialize={true}
             onSubmit={(values) => handleSubmit(values)}
-            validationSchema={BrandSchema}
+            validationSchema={CategorySchema}
         >
             {({ values, errors, handleChange, handleBlur }) => (
                 <Form>
@@ -39,7 +39,7 @@ function FormComp({ edit, handleSubmit = () => {} }: Props) {
                         <div className='form-error'>{errors.name}</div>
                     </div>
                     <div className='d-flex mt-4 flex-align-center gap-3'>
-                        <Button to='/admin/brand/list' type='outline'>
+                        <Button to='/admin/category/list' type='outline'>
                             BACK
                         </Button>
                         <Button>{edit ? 'SAVE' : 'CREATE'}</Button>

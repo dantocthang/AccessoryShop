@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { Popover } from 'antd'
 import {
     SearchOutlined,
@@ -10,6 +10,7 @@ import {
 import UserMenu from '../../__combined/UserMenu'
 import MiniCart from '../../__combined/MiniCart'
 import Search from '../../__atom/Search'
+import LinkItem from '../../__atom/LinkItem'
 
 import logo from '../../../assets/img/global/logo_primary.png'
 import classNames from 'classnames/bind'
@@ -23,7 +24,9 @@ function Header() {
             <div className={cl('inner')}>
                 <div className={`grid wide ${cl('top-wrapper')}`}>
                     <div className={cl('top')}>
-                        <img src={logo} alt='' className={cl('logo')} />
+                        <Link to='/'>
+                            <img src={logo} alt='' className={cl('logo')} />
+                        </Link>
                         <div className={cl('funcs')}>
                             <div
                                 onClick={() => setSearchVisible(true)}
@@ -67,7 +70,9 @@ function Header() {
                             >
                                 HOME
                                 <div className={cl('nav-item-extend')}>
-                                    content
+                                    <LinkItem to='/cart' title='Cart' />
+                                    <LinkItem to='/contact' title='Contact' />
+                                    <LinkItem to='/about' title='About us' />
                                 </div>
                             </NavLink>
                             <NavLink
@@ -78,7 +83,7 @@ function Header() {
                             >
                                 SHOP
                                 <div className={cl('nav-item-extend')}>
-                                    content
+                                    <LinkItem to='/product' title='List' />
                                 </div>
                             </NavLink>
                             <NavLink

@@ -12,7 +12,19 @@
     box-sizing: border-box;
     cursor: pointer;
     display: block;
-    
+
+    &.loading {
+        pointer-events: none;
+        filter: brightness(150%);
+        position: relative;
+        display: flex;
+        justify-content: flex-start;
+        gap: 10px;
+        .spin{
+            line-height: 10px;
+        }
+    }
+
 
     &:hover {
         background-color: black;

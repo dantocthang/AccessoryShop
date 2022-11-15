@@ -86,19 +86,19 @@ a:hover {
     display: flex;
 }
 
-.flex-align-center{
+.flex-align-center {
     align-items: center;
 }
 
-.gap-3{
+.gap-3 {
     gap: 12px;
 }
- 
-.mt-4{
+
+.mt-4 {
     margin-top: 16px;
 }
 
-.mb-4{
+.mb-4 {
     margin-bottom: 16px
 }
 
@@ -140,4 +140,5 @@ a:hover {
     background-color: var(--background);
     padding: 24px;
     min-height: calc(100vh - var(--admin-header-height));
+    margin-top: var(--admin-header-height);
 }

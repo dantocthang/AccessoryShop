@@ -4,7 +4,13 @@ import Home from '../features/home'
 import Detail from '../features/detail'
 import Cart from '../features/cart'
 import List from '../features/list'
-import { CreateBrand, ListBrand } from '../features/brand'
+import { CreateBrand, ListBrand, EditBrand } from '../features/brand'
+import {
+    CreateCategory,
+    ListCategory,
+    EditCategory,
+} from '../features/category'
+import { CreateProduct, ListProduct } from '../features/product'
 
 import HomeLayout from '../layouts/HomeLayout'
 import AdminLayout from '../layouts/AdminLayout'
@@ -16,8 +22,38 @@ const routes = [
     { path: '/login', component: Login },
     { path: '/register', component: Register },
     { path: '/product/:id', component: Detail },
-    { path: '/admin/brand/create', component: CreateBrand, layout: AdminLayout },
+    {
+        path: '/admin/brand/create',
+        component: CreateBrand,
+        layout: AdminLayout,
+    },
     { path: '/admin/brand/list', component: ListBrand, layout: AdminLayout },
+    { path: '/admin/brand/:id', component: EditBrand, layout: AdminLayout },
+    {
+        path: '/admin/category/create',
+        component: CreateCategory,
+        layout: AdminLayout,
+    },
+    {
+        path: '/admin/category/list',
+        component: ListCategory,
+        layout: AdminLayout,
+    },
+    {
+        path: '/admin/category/:id',
+        component: EditCategory,
+        layout: AdminLayout,
+    },
+    {
+        path: '/admin/product/create',
+        component: CreateProduct,
+        layout: AdminLayout,
+    },
+    {
+        path: '/admin/product/list',
+        component: ListProduct,
+        layout: AdminLayout,
+    },
 ]
 
 export default routes

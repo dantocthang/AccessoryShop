@@ -1,4 +1,5 @@
 import React from 'react'
+import { Spin } from 'antd'
 import { Link } from 'react-router-dom'
 
 import classNames from 'classnames/bind'
@@ -10,6 +11,7 @@ interface Props {
     to?: string
     size?: string // small, large
     leftIcon?: React.ReactNode
+    loading?: boolean
     children: React.ReactNode
     className?: string
     onClick?: Function
@@ -20,6 +22,7 @@ function Button({
     size,
     to,
     leftIcon,
+    loading,
     onClick,
     children,
     className,
@@ -32,10 +35,12 @@ function Button({
         <Component
             className={`${className} ${cl('wrapper', type, size, {
                 icon: !!leftIcon,
+                loading: loading,
             })}`}
             to={to}
             {...passwdProps}
         >
+            {loading && <Spin className={cl('spin')} size='small'/>}
             {leftIcon}
             {children}
         </Component>

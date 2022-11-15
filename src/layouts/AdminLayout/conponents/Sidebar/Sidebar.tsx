@@ -14,13 +14,13 @@ function Sidebar() {
                 Dashboard
             </Button>
             <Group title='management'>
-                <Button size='large' className={cl('item')} leftIcon={<AppleOutlined />} to='/admin/brand'>
+                <Button size='large' className={cl('item')} leftIcon={<AppleOutlined />} to='/admin/brand/list'>
                     Brand
                 </Button>
-                <Button size='large' className={cl('item')} leftIcon={<DeploymentUnitOutlined />} to='/admin/catgory'>
+                <Button size='large' className={cl('item')} leftIcon={<DeploymentUnitOutlined />} to='/admin/category/list'>
                     Categories
                 </Button>
-                <Button size='large' className={cl('item')} leftIcon={<CodepenOutlined />} to='/admin/product'>
+                <Button size='large' className={cl('item')} leftIcon={<CodepenOutlined />} to='/admin/product/list'>
                     Products
                 </Button>
             </Group>
