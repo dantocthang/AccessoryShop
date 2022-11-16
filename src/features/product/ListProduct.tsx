@@ -7,7 +7,8 @@ import Wrapper from '../../components/__atom/FormWrapper'
 import { Edit, Delete } from '../../components/__atom/ActionIcon'
 import productPlaceholder from '../../assets/img/components/product_placeholder.png'
 
-import { getProducts, deleteProduct } from './services'
+import { deleteProduct } from './services'
+import { getProducts } from '../../services'
 
 interface DataType {
     key: string
@@ -86,17 +87,7 @@ function ListProduct() {
 
     const data: DataType[] = productsQuery.isLoading
         ? []
-        : [
-              {
-                  key: '1',
-                  id: 1,
-                  name: 'Akko 3087 Midnight',
-                  price: 990000,
-                  modelYear: 2020,
-                  imageUrl: '',
-              },
-              ...productsQuery.data,
-          ].map((x) => ({
+        : productsQuery.data.map((x:DataType) => ({
               ...x,
               key: x.id,
           }))
@@ -108,7 +99,7 @@ function ListProduct() {
                 to='/admin/product/create'
                 className='mt-4 mb-4'
             >
-                Add new category
+                Add new product
             </Button>
             <Table
                 columns={columns}

@@ -10,7 +10,7 @@ import {
     ListCategory,
     EditCategory,
 } from '../features/category'
-import { CreateProduct, ListProduct } from '../features/product'
+import { CreateProduct, ListProduct, EditProduct } from '../features/product'
 
 import HomeLayout from '../layouts/HomeLayout'
 import AdminLayout from '../layouts/AdminLayout'
@@ -52,6 +52,11 @@ const routes = [
     {
         path: '/admin/product/list',
         component: ListProduct,
+        layout: AdminLayout,
+    },
+    {
+        path: '/admin/product/:id',
+        component: EditProduct,
         layout: AdminLayout,
     },
 ]

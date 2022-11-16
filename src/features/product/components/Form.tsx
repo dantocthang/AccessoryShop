@@ -1,10 +1,14 @@
 import { useState } from 'react'
 import { Input, Image, Upload, Select } from 'antd'
+import { useParams } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import moment from 'moment'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import ImgCrop from 'antd-img-crop'
 import * as Yup from 'yup'
+
+import { getProductById } from '../../../services'
 import Button from '../../../components/__atom/Button'
 import productPlaceholder from '../../../assets/img/components/product_placeholder.png'
 
@@ -28,25 +32,38 @@ const ProductSchema = Yup.object().shape({
 
 interface Props {
     edit?: boolean
-    handleSubmit: Function
+    handleSubmit: any
 }
 
-function FormComp({ edit, handleSubmit = () => {} }: Props) {
+function FormComp({ edit, handleSubmit }: Props) {
     const [loading, setLoading] = useState(false)
+
+    const { id } = useParams()
+    const productQuery = useQuery(['product'], () => getProductById({ id }), {
+        enabled: !!id,
+    })
     return (
         <Formik
-            initialValues={{
-                name: '',
-                description: '',
-                price: 0,
-                modelYear: moment().year(),
-                brand_id: 0,
-                category_id: 0,
-                imageUrl: '',
-                imagePublicId: '',
-            }}
+            initialValues={
+                !edit || productQuery.isLoading
+                    ? {
+                          name: '',
+                          description: '',
+                          price: 0,
+                          modelYear: moment().year(),
+                          brand_id: 0,
+                          category_id: 0,
+                          imageUrl: '',
+                          imagePublicId: '',
+                      }
+                    : {
+                          ...productQuery.data,
+                          category_id: productQuery.data.category.id,
+                          brand_id: productQuery.data.brand.id,
+                      }
+            }
             enableReinitialize={true}
-            onSubmit={(values) => handleSubmit(values)}
+            onSubmit={(values) => handleSubmit.mutate(values)}
             validationSchema={ProductSchema}
         >
             {({
@@ -128,7 +145,7 @@ function FormComp({ edit, handleSubmit = () => {} }: Props) {
                             }
                         >
                             <Option value={0}>-- Select category --</Option>
-                            <Option value={1}>-- Keyboard --</Option>
+                            <Option value={1}>Keyboard</Option>
                         </Select>
                         <ErrorMessage
                             component='div'
@@ -155,7 +172,7 @@ function FormComp({ edit, handleSubmit = () => {} }: Props) {
                             }
                         >
                             <Option value={0}>-- Select brand --</Option>
-                            <Option value={1}>-- Apple --</Option>
+                            <Option value={1}>Apple</Option>
                         </Select>
                         <ErrorMessage
                             component='div'
@@ -253,7 +270,7 @@ function FormComp({ edit, handleSubmit = () => {} }: Props) {
                         <ErrorMessage
                             component='div'
                             className='form-error'
-                            name='modelYear'
+                            name='imageUrl'
                         />
                     </div>
 
