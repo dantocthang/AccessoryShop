@@ -4,18 +4,27 @@ import { Link } from 'react-router-dom'
 import { Form, Formik, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 
+import { login } from './services'
+
 import classNames from 'classnames/bind'
 import styles from './Login.module.scss'
 const cl = classNames.bind(styles)
 
+const LoginSchema = Yup.object().shape({
+    username: Yup.string().required('Required'),
+    password: Yup.string()
+        .min(1, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Password is required'),
+})
+
 function Login() {
-    const LoginSchema = Yup.object().shape({
-        email: Yup.string().email('Invalid email').required('Required'),
-        password: Yup.string()
-            .min(1, 'Too Short!')
-            .max(50, 'Too Long!')
-            .required('Password is required'),
-    })
+    const handleSubmit = async (values: any) => {
+        const res = await login(values)
+        if (res.status === 200) {
+            localStorage.setItem('token', res.data.accessToken)
+        }
+    }
 
     return (
         <div className={cl('wrapper')}>
@@ -47,8 +56,8 @@ function Login() {
                         If you have an account with us, please log in.
                     </div>
                     <Formik
-                        initialValues={{ email: '', password: '' }}
-                        onSubmit={() => {}}
+                        initialValues={{ username: '', password: '' }}
+                        onSubmit={handleSubmit}
                         validationSchema={LoginSchema}
                     >
                         {({
@@ -66,19 +75,19 @@ function Login() {
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         status={
-                                            errors.email && touched.email
+                                            errors.username && touched.username
                                                 ? 'error'
                                                 : ''
                                         }
-                                        name='email'
-                                        id='email'
-                                        value={values.email}
-                                        placeholder='Enter email'
+                                        name='username'
+                                        id='username'
+                                        value={values.username}
+                                        placeholder='Enter username'
                                     ></Field>
                                     <ErrorMessage
                                         component='div'
                                         className='field-error'
-                                        name='email'
+                                        name='username'
                                     />
                                 </div>
                                 <div className={cl('form-group')}>

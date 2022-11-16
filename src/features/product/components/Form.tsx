@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Input, Image, Upload } from 'antd'
+import { Input, Image, Upload, Select } from 'antd'
 import axios from 'axios'
 import moment from 'moment'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
@@ -7,6 +7,8 @@ import ImgCrop from 'antd-img-crop'
 import * as Yup from 'yup'
 import Button from '../../../components/__atom/Button'
 import productPlaceholder from '../../../assets/img/components/product_placeholder.png'
+
+const { Option } = Select
 
 const ProductSchema = Yup.object().shape({
     name: Yup.string().min(1).required('Name is required!'),
@@ -16,9 +18,12 @@ const ProductSchema = Yup.object().shape({
         .required('Price is required'),
     description: Yup.string().min(1).required('Description is required'),
     modelYear: Yup.number()
-        .min(1990, `Product can't be that old :)`)
+        .min(1000, `Product can't be that old :)`)
         .max(moment().year(), `Back to the future huh?`)
         .required('Model year is required'),
+    brand_id: Yup.number().min(1, 'Please select brand'),
+    category_id: Yup.number().min(1, 'Please select category'),
+    imageUrl: Yup.string().required('Please upload image'),
 })
 
 interface Props {
@@ -35,6 +40,8 @@ function FormComp({ edit, handleSubmit = () => {} }: Props) {
                 description: '',
                 price: 0,
                 modelYear: moment().year(),
+                brand_id: 0,
+                category_id: 0,
                 imageUrl: '',
                 imagePublicId: '',
             }}
@@ -100,6 +107,60 @@ function FormComp({ edit, handleSubmit = () => {} }: Props) {
                             component='div'
                             className='form-error'
                             name='description'
+                        />
+                    </div>
+
+                    <div className='form-group'>
+                        <label className='form-label' htmlFor='category'>
+                            Category
+                        </label>
+                        <Select
+                            id='category_id'
+                            value={values.category_id}
+                            onChange={(value) =>
+                                setFieldValue('category_id', value)
+                            }
+                            size='large'
+                            status={
+                                errors.category_id && touched.category_id
+                                    ? 'error'
+                                    : ''
+                            }
+                        >
+                            <Option value={0}>-- Select category --</Option>
+                            <Option value={1}>-- Keyboard --</Option>
+                        </Select>
+                        <ErrorMessage
+                            component='div'
+                            className='form-error'
+                            name='category_id'
+                        />
+                    </div>
+
+                    <div className='form-group'>
+                        <label className='form-label' htmlFor='category'>
+                            Brand
+                        </label>
+                        <Select
+                            id='brand_id'
+                            value={values.brand_id}
+                            onChange={(value) =>
+                                setFieldValue('brand_id', value)
+                            }
+                            size='large'
+                            status={
+                                errors.brand_id && touched.brand_id
+                                    ? 'error'
+                                    : ''
+                            }
+                        >
+                            <Option value={0}>-- Select brand --</Option>
+                            <Option value={1}>-- Apple --</Option>
+                        </Select>
+                        <ErrorMessage
+                            component='div'
+                            className='form-error'
+                            name='brand_id'
                         />
                     </div>
 

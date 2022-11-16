@@ -1,21 +1,33 @@
+import { useQuery } from '@tanstack/react-query'
+
+import { getProducts } from '../../../services'
+
 import Item from '../../../components/__combined/ProductItem'
 
 import classNames from 'classnames/bind'
 import styles from '../Home.module.scss'
+import { Spin } from 'antd'
 const cl = classNames.bind(styles)
 
 function List() {
+    const productsQuery = useQuery(['user-products'], getProducts)
     return (
         <div className='grid wide'>
             <div className={cl('list-wrapper')}>
-                <div className={cl('list-heading')}>
-                    TENDING
+                <div className={cl('list-heading')}>TENDING</div>
+                <div className={cl('list-subheading')}>
+                    TOP VIEW IN THIS WEEK
                 </div>
-                <div className={cl('list-subheading')}>TOP VIEW IN THIS WEEK</div>
                 <div className='row'>
-                    <div className='col l-3 m-4 c-6'>
-                        <Item />
-                    </div>
+                    {productsQuery.isLoading ? (
+                        <Spin />
+                    ) : (
+                        productsQuery.data.map((item:any) => (
+                            <div key={item.id} className='col l-3 m-4 c-6'>
+                                <Item {...item} />
+                            </div>
+                        ))
+                    )}
                 </div>
             </div>
         </div>

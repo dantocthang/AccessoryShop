@@ -16,19 +16,19 @@ interface Props {}
 function UserMenu({}: Props) {
     return (
         <div className={cl('wrapper')}>
-            <Link to='/' className={cl('item')}>
+            <Link to='/cart' className={cl('item')}>
                 <ShoppingOutlined className={cl('icon')} />
                 Cart
             </Link>
-            <Link to='/' className={cl('item')}>
+            <Link to='/profile' className={cl('item')}>
                 <UserOutlined className={cl('icon')} />
                 Account
             </Link>
-            <Link to='/' className={cl('item')}>
+            <Link to='/login' className={cl('item')}>
                 <LoginOutlined className={cl('icon')} />
                 Login
             </Link>
-            <Link to='/' className={cl('item')}>
+            <Link to='/register' className={cl('item')}>
                 <UserOutlined className={cl('icon')} />
                 Register
             </Link>
