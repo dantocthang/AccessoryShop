@@ -11,6 +11,7 @@ import {
     EditCategory,
 } from '../features/category'
 import { CreateProduct, ListProduct, EditProduct } from '../features/product'
+import Profile from '../features/profile'
 
 import HomeLayout from '../layouts/HomeLayout'
 import AdminLayout from '../layouts/AdminLayout'
@@ -21,6 +22,7 @@ const routes = [
     { path: '/product', component: List },
     { path: '/login', component: Login },
     { path: '/register', component: Register },
+    { path: '/profile', component: Profile },
     { path: '/product/:id', component: Detail },
     {
         path: '/admin/brand/create',

@@ -12,9 +12,17 @@ interface Props {
     description: string
     price: number
     imageUrl: string
+    category: any
 }
 
-function ProductItem({ id, name, description, price, imageUrl }: Props) {
+function ProductItem({
+    id,
+    name,
+    description,
+    price,
+    imageUrl,
+    category,
+}: Props) {
     return (
         <Link to={`/product/${id}`} className={cl('item-wrapper')}>
             <img
@@ -32,7 +40,7 @@ function ProductItem({ id, name, description, price, imageUrl }: Props) {
                     Add to cart
                 </Button>
             </div>
-            <div className={cl('category')}>Keyboard</div>
+            <div className={cl('category')}>{category.name}</div>
         </Link>
     )
 }
