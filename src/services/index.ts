@@ -8,7 +8,10 @@ interface Props {
 
 // Get all products
 export const getProducts = async ({ page, sortBy }: Partial<Props>) => {
-    const res = await request.get('/product', { params: { page, sortBy: sortBy || 'id' } })
+    const res = await request.get('/product', {
+        params: { page, sortBy: sortBy || 'id' },
+    })
+    // console.log(res)
     if (res.status === 200) return res.data
     return []
 }

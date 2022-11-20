@@ -20,7 +20,9 @@ interface DataType {
 }
 
 function ListProduct() {
-    const productsQuery = useQuery(['admin-products'], getProducts)
+    const productsQuery = useQuery(['admin-products'], () =>
+        getProducts({ page: 0 })
+    )
     const deleteProductMuatation = useMutation(deleteProduct, {
         onSuccess: (data) => {
             console.log(data)
@@ -87,7 +89,7 @@ function ListProduct() {
 
     const data: DataType[] = productsQuery.isLoading
         ? []
-        : productsQuery.data.map((x:DataType) => ({
+        : productsQuery.data.content.map((x: DataType) => ({
               ...x,
               key: x.id,
           }))

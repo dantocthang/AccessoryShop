@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getProducts } from '../../../services'
 
 import Item from '../../../components/__combined/ProductItem'
+import Product from '../../../model/product'
 
 import classNames from 'classnames/bind'
 import styles from '../Home.module.scss'
@@ -10,7 +11,9 @@ import { Spin } from 'antd'
 const cl = classNames.bind(styles)
 
 function List() {
-    const productsQuery = useQuery(['user-products'], getProducts)
+    const productsQuery = useQuery(['user-products'], () =>
+        getProducts({ page: 0 })
+    )
     return (
         <div className='grid wide'>
             <div className={cl('list-wrapper')}>
@@ -22,7 +25,7 @@ function List() {
                     {productsQuery.isLoading ? (
                         <Spin />
                     ) : (
-                        productsQuery.data.map((item:any) => (
+                        productsQuery.data.content.map((item: Product) => (
                             <div key={item.id} className='col l-3 m-4 c-6'>
                                 <Item {...item} />
                             </div>
