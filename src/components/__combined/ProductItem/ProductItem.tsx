@@ -1,5 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
+import { useAppSelector } from '../../../hooks'
+import { addToCart } from '../../../services'
 import Button from '../../../components/__atom/Button'
 
 import classNames from 'classnames/bind'
@@ -9,20 +12,33 @@ const cl = classNames.bind(styles)
 interface Props {
     id: number
     name: string
-    description: string
     price: number
     imageUrl: string
     category: any
 }
 
-function ProductItem({
-    id,
-    name,
-    description,
-    price,
-    imageUrl,
-    category,
-}: Props) {
+function ProductItem({ id, name, price, imageUrl, category }: Props) {
+    const queryClient = useQueryClient()
+    const navigate = useNavigate()
+    const user = useAppSelector((state) => state.auth)
+    const addToCartMutation = useMutation(addToCart, {
+        onSuccess: (data) => {
+            queryClient.invalidateQueries(['cart'])
+        },
+    })
+
+    const handleAddToCart = (e: Event) => {
+        e.preventDefault()
+        e.stopPropagation()
+        if (!user.hasOwnProperty('id')) navigate('/login')
+        else
+            addToCartMutation.mutate({
+                product_id: id,
+                quantity: 1,
+                user_id: user.id,
+            })
+    }
+
     return (
         <Link to={`/product/${id}`} className={cl('item-wrapper')}>
             <img
@@ -36,7 +52,11 @@ function ProductItem({
             <div className={cl('item-info')}>
                 <div className={cl('item-name')}>{name}</div>
                 <div className={cl('item-price')}>{price} VND</div>
-                <Button className={cl('item-add')} type='primary'>
+                <Button
+                    onClick={handleAddToCart}
+                    className={cl('item-add')}
+                    type='primary'
+                >
                     Add to cart
                 </Button>
             </div>

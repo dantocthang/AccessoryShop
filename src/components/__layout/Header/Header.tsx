@@ -6,7 +6,9 @@ import {
     ShoppingCartOutlined,
     UserOutlined,
 } from '@ant-design/icons'
+import {useQuery} from '@tanstack/react-query'
 
+import {search} from '../../../services'
 import UserMenu from '../../__combined/UserMenu'
 import MiniCart from '../../__combined/MiniCart'
 import Search from '../../__atom/Search'
@@ -19,6 +21,17 @@ const cl = classNames.bind(styles)
 
 function Header() {
     const [searchVisible, setSearchVisible] = useState(false)
+    const [searchValue,setSearchValue] = useState('')
+
+    const searchQuery = useQuery(['search-products', searchValue], ()=>search(searchValue), {
+        staleTime: 30000,
+        cacheTime: 60000,
+        refetchOnWindowFocus: false
+    })
+
+    const handleSearch = () =>{
+
+    }
     return (
         <div className={cl('wrapper')}>
             <div className={cl('inner')}>
@@ -101,6 +114,9 @@ function Header() {
                     </div>
                 </div>
                 <Search
+                    products={searchQuery?.data || []}
+                    value={searchValue}
+                    onChange={setSearchValue}
                     onClose={() => setSearchVisible(false)}
                     onSearch={() => {}}
                     visible={searchVisible}

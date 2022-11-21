@@ -1,27 +1,52 @@
 import { Link } from 'react-router-dom'
-
-import { Divider } from 'antd'
+import { useQuery } from '@tanstack/react-query'
+import { Divider, Empty, Spin } from 'antd'
+import { useSelector } from 'react-redux'
 
 import MiniCartItem from './MiniCartItem'
 import Button from '../../__atom/Button'
+import { getCart } from '../../../services'
 
 import classNames from 'classnames/bind'
 import styles from './MiniCart.module.scss'
+import { useAppSelector } from '../../../hooks'
+import CartItem from '../../../model/cart-item'
 const cl = classNames.bind(styles)
 
 function MiniCart() {
+    const user = useAppSelector((state) => state.auth)
+    const cartQuery = useQuery(
+        ['cart'],
+        () => getCart({ user_id: user?.id }),
+        {}
+    )
     return (
         <div className={cl('wrapper')}>
-            <MiniCartItem />
+            {cartQuery.isLoading ? (
+                <Spin />
+            ) : cartQuery.data.length < 1 ? (
+                <Empty />
+            ) : (
+                cartQuery.data.map((x: CartItem) => <MiniCartItem key={x.id} {...x} />)
+            )}
             <Divider />
             <div className={cl('sub-total')}>
                 <span>SUBTOTAL:</span>
-                <span>120000 VND</span>
+                <span>
+                    {cartQuery?.data?.reduce(
+                        (acc: number, item: CartItem) =>
+                            (acc += item.quantity * item.product.price),
+                        0
+                    )}
+                    VND
+                </span>
             </div>
             <Button className={cl('button')} to='/checkout' type='primary'>
                 Proceed to Checkout
             </Button>
-            <Link className={cl('link')} to='/cart'>View cart</Link>
+            <Link className={cl('link')} to='/cart'>
+                View cart
+            </Link>
         </div>
     )
 }

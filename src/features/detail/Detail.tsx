@@ -1,10 +1,12 @@
-import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import { Breadcrumb, Image, InputNumber, Spin } from 'antd'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 
+import { useAppSelector } from '../../hooks'
 import Button from '../../components/__atom/Button'
 import { getProductById } from '../../services'
+import { addToCart } from '../../services'
 
 import classNames from 'classnames/bind'
 import styles from './Detail.module.scss'
@@ -15,8 +17,30 @@ interface Props {
 }
 
 function Detail() {
+    const queryClient = useQueryClient()
+    const [quantity, setQuantity] = useState(1)
+    const navigate = useNavigate()
+    const user = useAppSelector((state) => state.auth)
     const { id } = useParams()
     const productQuery = useQuery(['product'], () => getProductById({ id }))
+
+    const addToCartMutation = useMutation(addToCart, {
+        onSuccess: (data) => {
+            queryClient.invalidateQueries(['cart'])
+        },
+    })
+
+    const handleAddToCart = (e: Event) => {
+        e.preventDefault()
+        e.stopPropagation()
+        if (!user.hasOwnProperty('id') || !id) navigate('/login')
+        else
+            addToCartMutation.mutate({
+                product_id: parseInt(id),
+                quantity: quantity,
+                user_id: user.id,
+            })
+    }
 
     return (
         <div className={cl('wrapper')}>
@@ -65,6 +89,8 @@ function Detail() {
                             </div>
                             <div className={cl('cart')}>
                                 <InputNumber
+                                    onChange={(value) => setQuantity(value)}
+                                    value={quantity}
                                     size='large'
                                     max={productQuery.data.stock}
                                     min={1}
@@ -74,6 +100,7 @@ function Detail() {
                                     className={cl('button')}
                                     size='large'
                                     type='primary'
+                                    onClick={handleAddToCart}
                                 >
                                     Add to cart
                                 </Button>

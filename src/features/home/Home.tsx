@@ -1,4 +1,4 @@
-import React from 'react'
+import { useAppSelector } from '../../hooks'
 
 import Carousel from './components/Carousel'
 import List from './components/List'
@@ -8,6 +8,8 @@ import styles from './Home.module.scss'
 const cl = classNames.bind(styles)
 
 function Home() {
+    const user = useAppSelector(state=>state.auth)
+    console.log(user)
     return (
         <div className={cl('wrapper')}>
             <Carousel />

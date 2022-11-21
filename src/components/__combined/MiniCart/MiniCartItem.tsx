@@ -1,27 +1,45 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { DeleteOutlined } from '@ant-design/icons'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+
+import CartItem from '../../../model/cart-item'
+import { deleteCartItem } from '../../../services'
 
 import classNames from 'classnames/bind'
 import styles from './MiniCart.module.scss'
 const cl = classNames.bind(styles)
 
-function MiniCartItem() {
+function MiniCartItem({ id, product, quantity }: CartItem) {
+    const queryClient = useQueryClient()
+    const deleteCartItemMutation = useMutation(deleteCartItem, {
+        onSuccess: (data) => {
+            queryClient.invalidateQueries(['cart'])
+        },
+    })
+
+    const handleDelete = (event: any) => {
+        event.preventDefault()
+        event.stopPropagation()
+        deleteCartItemMutation.mutate({ cart_id: id })
+    }
     return (
-        <Link to='/' className={cl('item-wrapper')}>
+        <Link to={`/product/${product.id}`} className={cl('item-wrapper')}>
             <img
-                src='https://wokiee.jamstacktemplates.dev/assets/images/product/product-03.jpg'
-                alt=''
+                src={
+                    product?.imageUrl ||
+                    'https://wokiee.jamstacktemplates.dev/assets/images/product/product-03.jpg'
+                }
+                alt='product'
                 className={cl('item-img')}
             />
             <div className={cl('item-info')}>
-                <div>Akko midnight 3087</div>
-                <div>3 x 120000 VND</div>
+                <div>{product.name}</div>
+                <div>
+                    {quantity} x {product.price} VND
+                </div>
             </div>
-            <div
-                onClick={(e) => e.preventDefault()}
-                className={cl('item-delete')}
-            >
+            <div onClick={(e) => handleDelete(e)} className={cl('item-delete')}>
                 <DeleteOutlined />
             </div>
         </Link>

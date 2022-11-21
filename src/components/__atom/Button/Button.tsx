@@ -38,6 +38,7 @@ function Button({
                 loading: loading,
             })}`}
             to={to}
+            onClick={onClick}
             {...passwdProps}
         >
             {loading && <Spin className={cl('spin')} size='small'/>}
