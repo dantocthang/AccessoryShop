@@ -1,7 +1,10 @@
+import { useQuery } from '@tanstack/react-query'
 import { Input } from 'antd'
-import { Formik, Form, Field } from 'formik'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { useNavigate, useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import Button from '../../../components/__atom/Button'
+import { getCategoryById } from '../services'
 
 const CategorySchema = Yup.object().shape({
     name: Yup.string().min(1).required('Required'),
@@ -9,15 +12,28 @@ const CategorySchema = Yup.object().shape({
 
 interface Props {
     edit?: boolean
-    handleSubmit: Function
+    handleSubmit: any
 }
 
 function FormComp({ edit, handleSubmit = () => {} }: Props) {
+    const navigate = useNavigate()
+    const { id } = useParams()
+    const categoryQuery = useQuery(['product'], () => getCategoryById(id), {
+        enabled: !!id,
+    })
     return (
         <Formik
-            initialValues={{ name: '' }}
+            initialValues={
+                !edit || categoryQuery.isLoading
+                    ? {
+                          name: '',
+                      }
+                    : {
+                          ...categoryQuery.data,
+                      }
+            }
             enableReinitialize={true}
-            onSubmit={(values) => handleSubmit(values)}
+            onSubmit={(values) => handleSubmit.mutate(values)}
             validationSchema={CategorySchema}
         >
             {({ values, errors, handleChange, handleBlur }) => (
@@ -36,7 +52,11 @@ function FormComp({ edit, handleSubmit = () => {} }: Props) {
                             status={errors.name ? 'error' : ''}
                             value={values.name}
                         />
-                        <div className='form-error'>{errors.name}</div>
+                        <ErrorMessage
+                            component='div'
+                            className='form-error'
+                            name='name'
+                        />
                     </div>
                     <div className='d-flex mt-4 flex-align-center gap-3'>
                         <Button to='/admin/category/list' type='outline'>

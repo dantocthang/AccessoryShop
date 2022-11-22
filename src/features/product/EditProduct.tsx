@@ -4,18 +4,16 @@ import { message } from 'antd'
 import React from 'react'
 import { editProduct } from './services'
 
-
 import Wrapper from '../../components/__atom/FormWrapper'
 import Form from './components/Form'
 
 function EditProduct() {
-    
-
-    const createProductMutation = useMutation(editProduct, {
+    const editProductMutation = useMutation(editProduct, {
         onSuccess: (data) => {
             if (data.status === 201) {
                 message.success('Product updated')
             }
+            else message.error('Something went wrong!')
         },
     })
     return (
@@ -23,7 +21,7 @@ function EditProduct() {
             title='Edit product'
             description='Change product specifications'
         >
-            <Form edit handleSubmit={createProductMutation}></Form>
+            <Form edit handleSubmit={editProductMutation}></Form>
         </Wrapper>
     )
 }
