@@ -61,3 +61,29 @@ export const search = async (name: string) => {
     if (res.status === 200) return res.data
     return []
 }
+
+export const getAddresses = async (user_id: string | number) => {
+    const res = await request.get(`/address/${user_id}`)
+    if (res.status === 200) return res.data
+    return []
+}
+
+export const createAddress = async (value: {
+    user_id: number
+    ward_id: number
+    address: string
+    phone: string
+}) => {
+    const res = await request.post('/address/create', { ...value })
+    return res
+}
+
+// export const updateAddress = async (value: {
+//     user_id: number
+//     ward_id: number
+//     address: string
+//     phone: string
+// }) => {
+//     const res = await request.post('/address/create', { ...value })
+//     return res
+// }

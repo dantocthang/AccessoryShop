@@ -11,6 +11,7 @@ interface Props {
     to?: string
     size?: string // small, large
     leftIcon?: React.ReactNode
+    htmlType?: string
     loading?: boolean
     children: React.ReactNode
     className?: string
@@ -22,6 +23,7 @@ function Button({
     size,
     to,
     leftIcon,
+    htmlType,
     loading,
     onClick,
     children,
@@ -33,6 +35,7 @@ function Button({
 
     return (
         <Component
+            type={htmlType || ''}
             className={`${className} ${cl('wrapper', type, size, {
                 icon: !!leftIcon,
                 loading: loading,
@@ -41,7 +44,7 @@ function Button({
             onClick={onClick}
             {...passwdProps}
         >
-            {loading && <Spin className={cl('spin')} size='small'/>}
+            {loading && <Spin className={cl('spin')} size='small' />}
             {leftIcon}
             {children}
         </Component>

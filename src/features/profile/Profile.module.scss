@@ -29,7 +29,7 @@
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
-   
+
 
 }
 
@@ -42,7 +42,7 @@
     color: var(--text-light);
 }
 
-.nav-wrapper{
+.nav-wrapper {
     margin-top: 20px;
     min-height: 310px;
     padding: 24px;
@@ -53,7 +53,7 @@
     gap: 16px;
 }
 
-.link{
+.link {
     display: block;
     display: flex;
     justify-content: flex-start;
@@ -61,7 +61,7 @@
     font-size: 16px;
     font-weight: 500;
 
-    &:hover{
+    &:hover {
         color: var(--primary-1);
     }
 }
@@ -75,6 +75,10 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    +.form {
+        margin-top: 20px;
+    }
 }
 
 .heading {
@@ -126,7 +130,7 @@
 }
 
 .actions {
-    align-self: flex-end;
+    align-self: center;
     display: flex;
     align-items: center;
     justify-content: flex-start;

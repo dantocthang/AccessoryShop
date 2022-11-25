@@ -3,6 +3,8 @@ import Register from '../features/register'
 import Home from '../features/home'
 import Detail from '../features/detail'
 import Cart from '../features/cart'
+import Checkout from '../features/checkout'
+import Payment from '../features/payment'
 import List from '../features/list'
 import { CreateBrand, ListBrand, EditBrand } from '../features/brand'
 import {
@@ -18,8 +20,10 @@ import AdminLayout from '../layouts/AdminLayout'
 
 const routes = [
     { path: '/', component: Home, layout: HomeLayout },
-    { path: '/cart', component: Cart },
     { path: '/product', component: List },
+    { path: '/cart', component: Cart },
+    { path: '/checkout', component: Checkout },
+    { path: '/payment/:invoiceId', component: Payment },
     { path: '/login', component: Login },
     { path: '/register', component: Register },
     { path: '/profile', component: Profile },
