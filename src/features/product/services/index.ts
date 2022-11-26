@@ -28,7 +28,11 @@ export const deleteProduct = async ({ id }: Partial<Props>) => {
 }
 
 export const getPrerequisites = async () => {
-    return Promise.all([request.get('/brand'), request.get('/category')]).then(
-        (values) => console.log(values)
-    )
+    const res = Promise.all([
+        request.get('/brand/'),
+        request.get('/category'),
+    ]).then((values) => {
+        return values.map(x=>(x.data))
+    })
+    return res
 }

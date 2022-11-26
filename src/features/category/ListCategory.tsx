@@ -75,7 +75,6 @@ function ListCategory() {
                 loading={categoryQuery.isLoading}
                 columns={columns}
                 dataSource={data}
-                pagination={false}
             />
         </Wrapper>
     )

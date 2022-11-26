@@ -8,23 +8,36 @@ import Button from '../../../components/__atom/Button'
 import classNames from 'classnames/bind'
 import styles from '../Profile.module.scss'
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+import User from '../../../model/user'
 const cl = classNames.bind(styles)
 const { Option } = Select
 
 interface FormValues {
-    fullName: string
+    username: string
     password: string
     confirmPassword: string
 }
 
-function FormComp() {
+interface Props {
+    user: User
+}
+
+function FormComp({ user }: Props) {
     return (
         <Formik
-            initialValues={{
-                fullName: '',
-                password: '',
-                confirmPassword: '',
-            }}
+            initialValues={
+                user.hasOwnProperty('id')
+                    ? {
+                          username: user.username,
+                          password: '',
+                          confirmPassword: '',
+                      }
+                    : {
+                          username: '',
+                          password: '',
+                          confirmPassword: '',
+                      }
+            }
             onSubmit={(values) => console.log(values)}
         >
             {({ values, handleChange, handleBlur, setFieldValue }) => (
@@ -37,12 +50,13 @@ function FormComp() {
                     </div>
                     <div className={cl('basic')}>
                         <div className='form-group'>
-                            <label htmlFor='fullName' className='form-label'>
-                                Full name:
+                            <label htmlFor='username' className='form-label'>
+                                User name:
                             </label>
                             <Field
-                                id='fullName'
-                                name='fullName'
+                                id='username'
+                                name='username'
+                                value={values.username}
                                 component={Input}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -51,7 +65,7 @@ function FormComp() {
                             <ErrorMessage
                                 component='div'
                                 className='form-error'
-                                name='fullName'
+                                name='username'
                             />
                         </div>
                         <div className='form-group'>

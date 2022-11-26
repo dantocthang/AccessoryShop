@@ -18,7 +18,7 @@ interface Props {
 function FormComp({ edit, handleSubmit = () => {} }: Props) {
     const navigate = useNavigate()
     const { id } = useParams()
-    const categoryQuery = useQuery(['product'], () => getCategoryById(id), {
+    const categoryQuery = useQuery(['category'], () => getCategoryById(id), {
         enabled: !!id,
     })
     return (

@@ -9,6 +9,8 @@ import productPlaceholder from '../../assets/img/components/product_placeholder.
 
 import { deleteProduct } from './services'
 import { getProducts } from '../../services'
+import Pagination from '../../components/__layout/Pagination'
+import { useState } from 'react'
 
 interface DataType {
     key: string
@@ -20,8 +22,9 @@ interface DataType {
 }
 
 function ListProduct() {
-    const productsQuery = useQuery(['admin-products'], () =>
-        getProducts({ page: 0 })
+    const [page, setPage] = useState(0)
+    const productsQuery = useQuery(['admin-products', page], () =>
+        getProducts({ page })
     )
     const deleteProductMuatation = useMutation(deleteProduct, {
         onSuccess: (data) => {
@@ -29,6 +32,10 @@ function ListProduct() {
             productsQuery.refetch()
         },
     })
+
+    const onFetchNewData = (page: number) => {
+        setPage(page)
+    }
 
     const columns: ColumnsType<DataType> = [
         {
@@ -109,6 +116,14 @@ function ListProduct() {
                 dataSource={data}
                 pagination={false}
             />
+            {productsQuery?.data && (
+                <Pagination
+                    page={productsQuery.data.number}
+                    pages={productsQuery.data.totalPages}
+                    offset={2}
+                    onFetchNewData={onFetchNewData}
+                ></Pagination>
+            )}
         </Wrapper>
     )
 }

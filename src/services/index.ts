@@ -78,12 +78,4 @@ export const createAddress = async (value: {
     return res
 }
 
-// export const updateAddress = async (value: {
-//     user_id: number
-//     ward_id: number
-//     address: string
-//     phone: string
-// }) => {
-//     const res = await request.post('/address/create', { ...value })
-//     return res
-// }
+

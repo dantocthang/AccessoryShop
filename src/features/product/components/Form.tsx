@@ -11,6 +11,7 @@ import * as Yup from 'yup'
 import { getProductById } from '../../../services'
 import Button from '../../../components/__atom/Button'
 import productPlaceholder from '../../../assets/img/components/product_placeholder.png'
+import { getPrerequisites } from '../services'
 
 const { Option } = Select
 
@@ -25,6 +26,9 @@ const ProductSchema = Yup.object().shape({
         .min(1000, `Product can't be that old :)`)
         .max(moment().year(), `Back to the future huh?`)
         .required('Model year is required'),
+    stock: Yup.number()
+        .min(1, `Product quantity must greater than 1`)
+        .required('Stock quantity is required'),
     brand_id: Yup.number().min(1, 'Please select brand'),
     category_id: Yup.number().min(1, 'Please select category'),
     imageUrl: Yup.string().required('Please upload image'),
@@ -42,6 +46,8 @@ function FormComp({ edit, handleSubmit }: Props) {
     const productQuery = useQuery(['product'], () => getProductById({ id }), {
         enabled: !!id,
     })
+
+    const prerequisitesQuery = useQuery(['prerequisites'], getPrerequisites)
     return (
         <Formik
             initialValues={
@@ -51,6 +57,7 @@ function FormComp({ edit, handleSubmit }: Props) {
                           description: '',
                           price: 0,
                           modelYear: moment().year(),
+                          stock: 0,
                           brand_id: 0,
                           category_id: 0,
                           imageUrl: '',
@@ -145,7 +152,13 @@ function FormComp({ edit, handleSubmit }: Props) {
                             }
                         >
                             <Option value={0}>-- Select category --</Option>
-                            <Option value={1}>Keyboard</Option>
+                            {prerequisitesQuery?.data?.[1].map(
+                                (c: { id: number; name: string }) => (
+                                    <Option key={c.id} value={c.id}>
+                                        {c.name}
+                                    </Option>
+                                )
+                            )}
                         </Select>
                         <ErrorMessage
                             component='div'
@@ -172,7 +185,13 @@ function FormComp({ edit, handleSubmit }: Props) {
                             }
                         >
                             <Option value={0}>-- Select brand --</Option>
-                            <Option value={1}>Apple</Option>
+                            {prerequisitesQuery?.data?.[0].map(
+                                (c: { id: number; name: string }) => (
+                                    <Option key={c.id} value={c.id}>
+                                        {c.name}
+                                    </Option>
+                                )
+                            )}
                         </Select>
                         <ErrorMessage
                             component='div'
@@ -224,6 +243,26 @@ function FormComp({ edit, handleSubmit }: Props) {
                             component='div'
                             className='form-error'
                             name='modelYear'
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <label className='form-label'>Stock</label>
+                        <Field
+                            component={Input}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            size='large'
+                            name='stock'
+                            id='stock'
+                            status={
+                                errors.stock && touched.stock ? 'error' : ''
+                            }
+                            value={values.stock}
+                        />
+                        <ErrorMessage
+                            component='div'
+                            className='form-error'
+                            name='stock'
                         />
                     </div>
                     <div className='form-group'>

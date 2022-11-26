@@ -9,7 +9,7 @@ function EditCategory() {
     const updateCategoryMutation = useMutation(updateCategory, {
         onSuccess: (data) => {
             if (data.status === 200) {
-                message.success('Product updated')
+                message.success('Category updated')
             } else message.error('Something went wrong!')
         },
     })

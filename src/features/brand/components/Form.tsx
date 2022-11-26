@@ -1,7 +1,10 @@
+import { useQuery } from '@tanstack/react-query'
 import { Input } from 'antd'
 import { Formik, Form, Field } from 'formik'
+import { useNavigate, useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import Button from '../../../components/__atom/Button'
+import { getBrandByID } from '../service'
 
 const BrandSchema = Yup.object().shape({
     name: Yup.string().min(1).required('Required'),
@@ -9,15 +12,28 @@ const BrandSchema = Yup.object().shape({
 
 interface Props {
     edit?: boolean
-    handleSubmit: Function
+    handleSubmit: any
 }
 
 function FormComp({ edit, handleSubmit = () => {} }: Props) {
+    const navigate = useNavigate()
+    const { id } = useParams()
+    const brandQuery = useQuery(['brand'], () => getBrandByID(id || 1), {
+        enabled: !!id,
+    })
     return (
         <Formik
-            initialValues={{ name: '' }}
+            initialValues={
+                !edit || brandQuery.isLoading
+                    ? {
+                          name: '',
+                      }
+                    : {
+                          ...brandQuery.data,
+                      }
+            }
             enableReinitialize={true}
-            onSubmit={(values) => handleSubmit(values)}
+            onSubmit={(values) => handleSubmit.mutate(values)}
             validationSchema={BrandSchema}
         >
             {({ values, errors, handleChange, handleBlur }) => (
