@@ -15,7 +15,7 @@ function EditBrand() {
     })
     return (
         <Wrapper
-            title='Edit Brand: Brand A'
+            title='Edit Brand:'
             description='Add new brand by providing a unique name'
         >
             <Form edit handleSubmit={updateBrandMutation}></Form>

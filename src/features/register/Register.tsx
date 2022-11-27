@@ -1,4 +1,4 @@
-import { Breadcrumb, Input } from 'antd'
+import { Breadcrumb, Input, message } from 'antd'
 import Button from '../../components/__atom/Button'
 import { Link } from 'react-router-dom'
 import { Form, Formik, Field, ErrorMessage } from 'formik'
@@ -6,27 +6,38 @@ import * as Yup from 'yup'
 
 import classNames from 'classnames/bind'
 import styles from './Register.module.scss'
+import { useMutation } from '@tanstack/react-query'
+import { createAccount } from './services'
 const cl = classNames.bind(styles)
 
-function Register() {
-    const SignupSchema = Yup.object().shape({
-        username: Yup.string()
-            .min(1, 'Name too short')
-            .max(50, 'Name too long')
-            .required('Enter your username'),
-        email: Yup.string().email('Invalid email').required('Required'),
-        password: Yup.string()
-            .min(6, 'Too Short!')
-            .max(50, 'Too Long!')
-            .required('Password is required')
-            .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,50}$/,
-                'Password must contains at least one Uppercase letter, one lowercase letter and a number'
-            ),
-        confirmPassword: Yup.string().oneOf(
-            [Yup.ref('password'), null],
-            'Passwords must match'
+const SignupSchema = Yup.object().shape({
+    username: Yup.string()
+        .min(1, 'Name too short')
+        .max(50, 'Name too long')
+        .required('Enter your username'),
+    email: Yup.string().email('Invalid email').required('Required'),
+    password: Yup.string()
+        .min(6, 'Too Short!')
+        .max(40, 'Too Long!')
+        .required('Password is required')
+        .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,50}$/,
+            'Password must contains at least one Uppercase letter, one lowercase letter and a number'
         ),
+    confirmPassword: Yup.string().oneOf(
+        [Yup.ref('password'), null],
+        'Passwords must match'
+    ),
+})
+function Register() {
+    const createAccountMutation = useMutation(createAccount, {
+        onSuccess: (data) => {
+            console.log(data)
+            if (data.status === 200) message.success('Sign up successfully')
+        },
+        onError: (error: any) => {
+            message.error(error.response.data.message)
+        },
     })
 
     return (
@@ -52,7 +63,9 @@ function Register() {
                             password: '',
                             confirmPassword: '',
                         }}
-                        onSubmit={() => {}}
+                        onSubmit={(values) =>
+                            createAccountMutation.mutate(values)
+                        }
                         validationSchema={SignupSchema}
                     >
                         {({

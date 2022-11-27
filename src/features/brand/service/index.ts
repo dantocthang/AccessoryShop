@@ -11,7 +11,8 @@ export const createBrand = async ({ name }: Partial<Props>) => {
 
 export const getBrandByID = async (id: string | number) => {
     const res = await request.get(`/brand/${id}`)
-    return res
+    if (res.status === 200) return res.data
+    return null
 }
 export const getBrands = async () => {
     const res = await request.get(`/brand/`)

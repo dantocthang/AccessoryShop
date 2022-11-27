@@ -17,6 +17,7 @@ function Total({ cart = [] }: { cart: CartItem[] }) {
                 {cart?.length > 0 &&
                     cart.map((x) => (
                         <Item
+                            key={x.id}
                             label={x.product.name}
                             value={`${x.quantity} x ${x.product.price} VND`}
                         ></Item>

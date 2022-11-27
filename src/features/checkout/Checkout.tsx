@@ -321,7 +321,7 @@ function Checkout() {
                                         </Option>
                                         {addressQuery?.data?.map(
                                             (a: Address) => (
-                                                <Option value={a.id}>
+                                                <Option key={a.id} value={a.id}>
                                                     Profile {a.id}: {a.address},{' '}
                                                     {a.phone}
                                                 </Option>

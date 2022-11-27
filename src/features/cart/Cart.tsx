@@ -12,6 +12,7 @@ import { useAppSelector } from '../../hooks'
 import classNames from 'classnames/bind'
 import styles from './Cart.module.scss'
 import CartItem from '../../model/cart-item'
+import formatCurrency from '../../utils/formatCurrency'
 const cl = classNames.bind(styles)
 
 function Cart() {
@@ -67,14 +68,15 @@ function Cart() {
                                 <div className={cl('label')}>SUBTOTAL:</div>
                                 <div>
                                     {' '}
-                                    {cartQuery?.data?.reduce(
-                                        (acc: number, item: CartItem) =>
-                                            (acc +=
-                                                item.quantity *
-                                                item.product.price),
-                                        0
-                                    )}{' '}
-                                    VND
+                                    {formatCurrency(
+                                        cartQuery?.data?.reduce(
+                                            (acc: number, item: CartItem) =>
+                                                (acc +=
+                                                    item.quantity *
+                                                    item.product.price),
+                                            0
+                                        )
+                                    )}
                                 </div>
                             </div>
                             <div className={cl('total')}>
@@ -82,15 +84,15 @@ function Cart() {
                                     GRAND TOTAL:
                                 </div>
                                 <div>
-                                    {' '}
-                                    {cartQuery?.data?.reduce(
-                                        (acc: number, item: CartItem) =>
-                                            (acc +=
-                                                item.quantity *
-                                                item.product.price),
-                                        0
-                                    )}{' '}
-                                    VND
+                                    {formatCurrency(
+                                        cartQuery?.data?.reduce(
+                                            (acc: number, item: CartItem) =>
+                                                (acc +=
+                                                    item.quantity *
+                                                    item.product.price),
+                                            0
+                                        )
+                                    )}
                                 </div>
                             </div>
                             <Button

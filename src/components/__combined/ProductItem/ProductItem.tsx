@@ -7,6 +7,7 @@ import Button from '../../../components/__atom/Button'
 
 import classNames from 'classnames/bind'
 import styles from './ProductItem.module.scss'
+import { message } from 'antd'
 const cl = classNames.bind(styles)
 
 interface Props {
@@ -23,6 +24,7 @@ function ProductItem({ id, name, price, imageUrl, category }: Props) {
     const user = useAppSelector((state) => state.auth)
     const addToCartMutation = useMutation(addToCart, {
         onSuccess: (data) => {
+            message.success('Added to cart')
             queryClient.invalidateQueries(['cart'])
         },
     })

@@ -146,6 +146,7 @@ function FormComp() {
                                     {values.addresses.map(
                                         (a: Address, index: number) => (
                                             <div
+                                                key={index}
                                                 className={cl('address-group')}
                                             >
                                                 <div className='form-group'>
@@ -191,6 +192,7 @@ function FormComp() {
                                                         {cityQuery?.data?.map(
                                                             (x: City) => (
                                                                 <Option
+                                                                    key={x.id}
                                                                     value={x.id}
                                                                 >
                                                                     {x.name}
@@ -258,6 +260,9 @@ function FormComp() {
                                                                       )
                                                                           return (
                                                                               <Option
+                                                                                  key={
+                                                                                      x.id
+                                                                                  }
                                                                                   value={
                                                                                       x.id
                                                                                   }
@@ -325,6 +330,9 @@ function FormComp() {
                                                                       )
                                                                           return (
                                                                               <Option
+                                                                                  key={
+                                                                                      x.id
+                                                                                  }
                                                                                   value={
                                                                                       x.id
                                                                                   }

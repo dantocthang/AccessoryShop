@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { Input } from 'antd'
-import { Formik, Form, Field } from 'formik'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { useNavigate, useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import Button from '../../../components/__atom/Button'
@@ -52,7 +52,11 @@ function FormComp({ edit, handleSubmit = () => {} }: Props) {
                             status={errors.name ? 'error' : ''}
                             value={values.name}
                         />
-                        <div className='form-error'>{errors.name}</div>
+                       <ErrorMessage
+                            component='div'
+                            className='form-error'
+                            name='name'
+                        />
                     </div>
                     <div className='d-flex mt-4 flex-align-center gap-3'>
                         <Button to='/admin/brand/list' type='outline'>

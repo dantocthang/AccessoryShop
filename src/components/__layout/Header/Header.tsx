@@ -78,41 +78,56 @@ function Header() {
                 <div className={cl('bottom-wrapper')}>
                     <div className={`grid wide h-full`}>
                         <div className={cl('bottom')}>
-                            <NavLink
-                                to='/'
-                                className={(state) =>
-                                    cl('nav-item', { active: state.isActive })
-                                }
-                            >
-                                HOME
+                            <div className={cl('nav-item')}>
+                                <NavLink
+                                    to='/'
+                                    className={(state) =>
+                                        cl({
+                                            active: state.isActive,
+                                        })
+                                    }
+                                >
+                                    HOME
+                                </NavLink>
+
                                 <div className={cl('nav-item-extend')}>
                                     <LinkItem to='/cart' title='Cart' />
                                     <LinkItem to='/contact' title='Contact' />
                                     <LinkItem to='/about' title='About us' />
                                 </div>
-                            </NavLink>
-                            <NavLink
-                                to='/shop'
-                                className={(state) =>
-                                    cl('nav-item', { active: state.isActive })
-                                }
-                            >
-                                SHOP
+                            </div>
+                            <div className={cl('nav-item')}>
+                                <NavLink
+                                    to='/shop'
+                                    className={(state) =>
+                                        cl({
+                                            active: state.isActive,
+                                        })
+                                    }
+                                >
+                                    SHOP
+                                </NavLink>
+
                                 <div className={cl('nav-item-extend')}>
                                     <LinkItem to='/product' title='List' />
                                 </div>
-                            </NavLink>
-                            <NavLink
-                                to='/contact'
-                                className={(state) =>
-                                    cl('nav-item', { active: state.isActive })
-                                }
-                            >
-                                CONTACT
+                            </div>
+                            <div className={cl('nav-item')}>
+                                <NavLink
+                                    to='/shop'
+                                    className={(state) =>
+                                        cl({
+                                            active: state.isActive,
+                                        })
+                                    }
+                                >
+                                    CONTACT
+                                </NavLink>
+
                                 <div className={cl('nav-item-extend')}>
                                     content
                                 </div>
-                            </NavLink>
+                            </div>
                         </div>
                     </div>
                 </div>

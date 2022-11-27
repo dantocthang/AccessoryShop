@@ -11,6 +11,7 @@ import classNames from 'classnames/bind'
 import styles from './MiniCart.module.scss'
 import { useAppSelector } from '../../../hooks'
 import CartItem from '../../../model/cart-item'
+import formatCurrency from '../../../utils/formatCurrency'
 const cl = classNames.bind(styles)
 
 function MiniCart() {
@@ -27,18 +28,21 @@ function MiniCart() {
             ) : cartQuery.data.length < 1 ? (
                 <Empty />
             ) : (
-                cartQuery.data.map((x: CartItem) => <MiniCartItem key={x.id} {...x} />)
+                cartQuery.data.map((x: CartItem) => (
+                    <MiniCartItem key={x.id} {...x} />
+                ))
             )}
             <Divider />
             <div className={cl('sub-total')}>
                 <span>SUBTOTAL:</span>
                 <span>
-                    {cartQuery?.data?.reduce(
-                        (acc: number, item: CartItem) =>
-                            (acc += item.quantity * item.product.price),
-                        0
+                    {formatCurrency(
+                        cartQuery?.data?.reduce(
+                            (acc: number, item: CartItem) =>
+                                (acc += item.quantity * item.product.price),
+                            0
+                        )
                     )}
-                    VND
                 </span>
             </div>
             <Button className={cl('button')} to='/checkout' type='primary'>

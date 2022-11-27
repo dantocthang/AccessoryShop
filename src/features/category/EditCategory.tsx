@@ -15,7 +15,7 @@ function EditCategory() {
     })
     return (
         <Wrapper
-            title='Edit category: Keyboard'
+            title='Edit category: '
             description='Modify categoy name'
         >
             <Form edit handleSubmit={updateCategoryMutation}></Form>

@@ -10,7 +10,9 @@ function DefaultLayout({ children }: Props) {
     return (
         <div>
             <Header></Header>
-            <div className="grid wide" style={{overflow: 'visible'}}>{children}</div>
+            <div className='grid wide' style={{ overflow: 'visible' }}>
+                {children}
+            </div>
             <Footer></Footer>
         </div>
     )

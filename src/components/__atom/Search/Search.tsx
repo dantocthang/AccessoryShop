@@ -52,6 +52,7 @@ function Search({
                     {products.length > 0 ? (
                         products.map((x: Product) => (
                             <Link
+                                key={x.id}
                                 to={`/product/${x.id}`}
                                 className={cl('result-item')}
                             >
