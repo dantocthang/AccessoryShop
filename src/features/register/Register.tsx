@@ -10,10 +10,10 @@ const cl = classNames.bind(styles)
 
 function Register() {
     const SignupSchema = Yup.object().shape({
-        fullName: Yup.string()
+        username: Yup.string()
             .min(1, 'Name too short')
             .max(50, 'Name too long')
-            .required('Enter your full name'),
+            .required('Enter your username'),
         email: Yup.string().email('Invalid email').required('Required'),
         password: Yup.string()
             .min(6, 'Too Short!')
@@ -47,7 +47,7 @@ function Register() {
                     </div>
                     <Formik
                         initialValues={{
-                            fullName: '',
+                            username: '',
                             email: '',
                             password: '',
                             confirmPassword: '',
@@ -65,7 +65,7 @@ function Register() {
                             <Form className={cl('login')}>
                                 <div className={cl('form-group')}>
                                     <label
-                                        htmlFor='fullName'
+                                        htmlFor='username'
                                         className={cl('form-label')}
                                     >
                                         FULL NAME *
@@ -76,19 +76,19 @@ function Register() {
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         status={
-                                            errors.fullName && touched.fullName
+                                            errors.username && touched.username
                                                 ? 'error'
                                                 : ''
                                         }
-                                        name='fullName'
-                                        id='fullName'
-                                        value={values.fullName}
+                                        name='username'
+                                        id='username'
+                                        value={values.username}
                                         placeholder='Enter full name'
                                     ></Field>
                                     <ErrorMessage
                                         component='div'
                                         className='field-error'
-                                        name='fullName'
+                                        name='username'
                                     />
                                 </div>
                                 <div className={cl('form-group')}>

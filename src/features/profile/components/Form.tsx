@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Input, message, Popconfirm, Select, Spin } from 'antd'
 import { Form, Formik, Field, ErrorMessage, FieldArray } from 'formik'
 import * as Yup from 'yup'
@@ -12,6 +12,16 @@ import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { createAddress, getAddresses } from '../../../services'
 import { useAppSelector } from '../../../hooks'
+import {
+    deleteAddress,
+    getCities,
+    getDistricts,
+    getWards,
+    updateAddress,
+} from '../services'
+import { City } from '../../../model/city'
+import District from '../../../model/district'
+import Ward from '../../../model/ward'
 const cl = classNames.bind(styles)
 const { Option } = Select
 
@@ -49,24 +59,49 @@ function FormComp() {
     const user = useAppSelector((state) => state.auth)
     const addressQuery = useQuery(['addresses'], () => getAddresses(user.id))
 
+    const cityQuery = useQuery(['city'], getCities)
+    const districtQuery = useQuery(['district'], () => getDistricts())
+    const wardQuery = useQuery(['ward'], () => getWards())
+
     const createAddressMutation = useMutation(createAddress, {
         onSuccess: (data) => {
-            if (data.status === 200) {
+            if (data.status === 201) {
                 message.success('New address profile added!')
             }
         },
     })
 
+    const updateAddressMutation = useMutation(updateAddress, {
+        onSuccess: (data) => {
+            if (data.status === 200) {
+                message.success('Address updated')
+            }
+        },
+    })
+
+    const deleteAddressMutation = useMutation(deleteAddress, {
+        onSuccess: (data) => {
+            if (data.status === 200) {
+                message.success('Address deleted')
+            }
+        },
+    })
+
     const handleSubmit = (values: any) => {
-        console.log(values)
         for (const address of values.addresses) {
             if (address.hasOwnProperty('id')) {
-                // Update
+                updateAddressMutation.mutate({
+                    id: address.id,
+                    address: address.address,
+                    phone: address.phone,
+                    ward_id: address.ward_id,
+                    user_id: user.id,
+                })
             } else {
                 createAddressMutation.mutate({
                     address: address.address,
                     phone: address.phone,
-                    ward_id: address.ward_id || 1,
+                    ward_id: address.ward_id,
                     user_id: user.id,
                 })
             }
@@ -79,12 +114,14 @@ function FormComp() {
         <Formik
             initialValues={{
                 addresses:
-                    addressQuery?.data?.map((x: Address) => ({
-                        ...x,
-                        district_id: x.ward.district.id,
-                        city_id: x.ward.district.city.id,
-                        ward_id: x.ward.id,
-                    })) || [],
+                    addressQuery?.data?.length > 0
+                        ? addressQuery?.data?.map((x: Address) => ({
+                              ...x,
+                              district_id: x.ward.district.id,
+                              city_id: x.ward.district.city.id,
+                              ward_id: x.ward.id,
+                          }))
+                        : [sampleAddress],
             }}
             enableReinitialize
             validationSchema={AddressSchema}
@@ -133,19 +170,33 @@ function FormComp() {
                                                         }
                                                         onChange={(
                                                             value: number
-                                                        ) =>
+                                                        ) => {
                                                             setFieldValue(
                                                                 `addresses.${index}.city_id`,
                                                                 value
                                                             )
-                                                        }
+                                                            setFieldValue(
+                                                                `addresses.${index}.district_id`,
+                                                                0
+                                                            )
+                                                            setFieldValue(
+                                                                `addresses.${index}.ward_id`,
+                                                                0
+                                                            )
+                                                        }}
                                                     >
                                                         <Option value={0}>
                                                             -- Choose city --
                                                         </Option>
-                                                        <Option value={1}>
-                                                            Can Tho
-                                                        </Option>
+                                                        {cityQuery?.data?.map(
+                                                            (x: City) => (
+                                                                <Option
+                                                                    value={x.id}
+                                                                >
+                                                                    {x.name}
+                                                                </Option>
+                                                            )
+                                                        )}
                                                     </Field>
                                                     <ErrorMessage
                                                         component='div'
@@ -175,20 +226,50 @@ function FormComp() {
                                                         }
                                                         onChange={(
                                                             value: number
-                                                        ) =>
+                                                        ) => {
                                                             setFieldValue(
                                                                 `addresses.${index}.district_id`,
                                                                 value
                                                             )
-                                                        }
+                                                            setFieldValue(
+                                                                `addresses.${index}.ward_id`,
+                                                                0
+                                                            )
+                                                        }}
                                                     >
                                                         <Option value={0}>
                                                             -- Choose district
                                                             --
                                                         </Option>
-                                                        <Option value={1}>
-                                                            Binh Thuy
-                                                        </Option>
+                                                        {values.addresses[index]
+                                                            .city_id !== 0
+                                                            ? districtQuery?.data?.map(
+                                                                  (
+                                                                      x: District
+                                                                  ) => {
+                                                                      if (
+                                                                          x.city
+                                                                              .id ===
+                                                                          values
+                                                                              .addresses[
+                                                                              index
+                                                                          ]
+                                                                              .city_id
+                                                                      )
+                                                                          return (
+                                                                              <Option
+                                                                                  value={
+                                                                                      x.id
+                                                                                  }
+                                                                              >
+                                                                                  {
+                                                                                      x.name
+                                                                                  }
+                                                                              </Option>
+                                                                          )
+                                                                  }
+                                                              )
+                                                            : null}
                                                     </Field>
                                                     <ErrorMessage
                                                         component='div'
@@ -228,9 +309,34 @@ function FormComp() {
                                                         <Option value={0}>
                                                             -- Choose ward --
                                                         </Option>
-                                                        <Option value={1}>
-                                                            Long Tuyen
-                                                        </Option>
+                                                        {values.addresses[index]
+                                                            .district_id !== 0
+                                                            ? wardQuery?.data?.map(
+                                                                  (x: Ward) => {
+                                                                      if (
+                                                                          x
+                                                                              .district
+                                                                              .id ===
+                                                                          values
+                                                                              .addresses[
+                                                                              index
+                                                                          ]
+                                                                              .district_id
+                                                                      )
+                                                                          return (
+                                                                              <Option
+                                                                                  value={
+                                                                                      x.id
+                                                                                  }
+                                                                              >
+                                                                                  {
+                                                                                      x.name
+                                                                                  }
+                                                                              </Option>
+                                                                          )
+                                                                  }
+                                                              )
+                                                            : null}
                                                     </Field>
                                                     <ErrorMessage
                                                         component='div'
@@ -302,11 +408,24 @@ function FormComp() {
                                                         <PlusOutlined />
                                                     </div>
                                                     <Popconfirm
-                                                        onConfirm={() =>
+                                                        onConfirm={() => {
                                                             arrayHelpers.remove(
                                                                 index
                                                             )
-                                                        }
+                                                            if (
+                                                                values.addresses[
+                                                                    index
+                                                                ].hasOwnProperty(
+                                                                    'id'
+                                                                )
+                                                            )
+                                                                deleteAddressMutation.mutate(
+                                                                    values
+                                                                        .addresses[
+                                                                        index
+                                                                    ].id
+                                                                )
+                                                        }}
                                                         title='Are you sure?'
                                                     >
                                                         <div
