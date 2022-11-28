@@ -14,6 +14,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { createOrder } from './services'
 import { createAddress, getAddresses } from '../../services'
 import Address from '../../model/address'
+import { goPayment } from '../payment/services'
 const cl = classNames.bind(styles)
 
 const { Option } = Select
@@ -34,6 +35,8 @@ const AddressSchema = Yup.object().shape({
 function Checkout() {
     const navigate = useNavigate()
     const user = useAppSelector((state) => state.auth)
+    const [method, setMethod] = useState('vnpay')
+
     const cartQuery = useQuery(['cart'], () => getCart({ user_id: user.id }))
 
     const addressQuery = useQuery(['addresses'], () => getAddresses(user.id))
@@ -50,11 +53,26 @@ function Checkout() {
         },
     })
 
+    const goPaymentMutation = useMutation(goPayment, {
+        onSuccess: (data) => {
+            console.log(data)
+            if (data.status === 200) {
+                window.location.href = data.data
+            }
+            message.success('Order paid successfully!')
+        },
+    })
+
     const createOrderMutation = useMutation(createOrder, {
         onSuccess: (data) => {
             console.log(data)
             message.success('Order created successfully!')
-            navigate(`/payment/${data.data.invoiceId}`)
+            goPaymentMutation.mutate({
+                invoice_id: data.data.invoiceId,
+                user_id: user.id,
+                method,
+            })
+            // navigate(`/payment/${data.data.invoiceId}`)
         },
     })
 
@@ -331,7 +349,11 @@ function Checkout() {
                                 </div>
                             </div>
                             <div className='col l-5 m-6 c-12'>
-                                <Total cart={cartQuery.data}></Total>
+                                <Total
+                                    method={method}
+                                    setMethod={setMethod}
+                                    cart={cartQuery.data}
+                                ></Total>
                             </div>
                         </div>
                     </Form>
