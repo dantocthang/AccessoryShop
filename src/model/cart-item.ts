@@ -1,7 +1,8 @@
 import Product from './product'
 
-export default interface CartItem{
+export default interface CartItem {
     id: number
     product: Product
     quantity: number
+    status: boolean
 }

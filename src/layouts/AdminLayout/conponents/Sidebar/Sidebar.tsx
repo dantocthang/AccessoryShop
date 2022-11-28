@@ -1,4 +1,10 @@
-import { AppleOutlined, CodepenOutlined, DashboardOutlined, DeploymentUnitOutlined } from '@ant-design/icons'
+import {
+    AppleOutlined,
+    CarryOutOutlined,
+    CodepenOutlined,
+    DashboardOutlined,
+    DeploymentUnitOutlined,
+} from '@ant-design/icons'
 
 import Button from '../../../../components/__atom/Button'
 import Group from './components/Group'
@@ -10,18 +16,46 @@ const cl = classNames.bind(styles)
 function Sidebar() {
     return (
         <div className={cl('wrapper')}>
-            <Button size='large' className={cl('item')} leftIcon={<DashboardOutlined />} to='/admin/home'>
+            <Button
+                size='large'
+                className={cl('item')}
+                leftIcon={<DashboardOutlined />}
+                to='/admin/home'
+            >
                 Dashboard
             </Button>
             <Group title='management'>
-                <Button size='large' className={cl('item')} leftIcon={<AppleOutlined />} to='/admin/brand/list'>
+                <Button
+                    size='large'
+                    className={cl('item')}
+                    leftIcon={<AppleOutlined />}
+                    to='/admin/brand/list'
+                >
                     Brand
                 </Button>
-                <Button size='large' className={cl('item')} leftIcon={<DeploymentUnitOutlined />} to='/admin/category/list'>
+                <Button
+                    size='large'
+                    className={cl('item')}
+                    leftIcon={<DeploymentUnitOutlined />}
+                    to='/admin/category/list'
+                >
                     Categories
                 </Button>
-                <Button size='large' className={cl('item')} leftIcon={<CodepenOutlined />} to='/admin/product/list'>
+                <Button
+                    size='large'
+                    className={cl('item')}
+                    leftIcon={<CodepenOutlined />}
+                    to='/admin/product/list'
+                >
                     Products
+                </Button>
+                <Button
+                    size='large'
+                    className={cl('item')}
+                    leftIcon={<CarryOutOutlined />}
+                    to='/admin/order'
+                >
+                    Orders
                 </Button>
             </Group>
         </div>
