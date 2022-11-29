@@ -16,15 +16,17 @@ interface Props {
     price: number
     imageUrl: string
     category: any
+    stock: number
 }
 
-function ProductItem({ id, name, price, imageUrl, category }: Props) {
+function ProductItem({ id, name, price, imageUrl, category, stock }: Props) {
     const queryClient = useQueryClient()
     const navigate = useNavigate()
     const user = useAppSelector((state) => state.auth)
     const addToCartMutation = useMutation(addToCart, {
         onSuccess: (data) => {
-            message.success('Added to cart')
+            if (data.status === 201) message.success('Added to cart')
+            else message.error('Product is out of stock')
             queryClient.invalidateQueries(['cart'])
         },
     })
@@ -58,6 +60,7 @@ function ProductItem({ id, name, price, imageUrl, category }: Props) {
                     onClick={handleAddToCart}
                     className={cl('item-add')}
                     type='primary'
+                    disabled={stock === 0}
                 >
                     Add to cart
                 </Button>

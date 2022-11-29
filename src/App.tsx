@@ -4,20 +4,23 @@ import DefaultLayout from './layouts/DefaultLayout'
 import './assets/css/grid.css'
 import 'antd/dist/antd.css'
 import './assets/css/style.css'
+import ProtectedRoute from './components/__combined/ProtectedRoute/ProtectedRoute'
 
 function App() {
     return (
         <div className='App'>
             <Router>
                 <Routes>
-                    {routes.map((r, index) => {
+                    {routes.map((r: any, index) => {
                         let Component = r.component
                         let Layout = DefaultLayout
                         if (r.layout) Layout = r.layout
                         let Content = (
-                            <Layout>
-                                <Component />
-                            </Layout>
+                            <ProtectedRoute role={r?.role}>
+                                <Layout>
+                                    <Component></Component>
+                                </Layout>
+                            </ProtectedRoute>
                         )
                         return (
                             <Route

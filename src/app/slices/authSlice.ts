@@ -20,9 +20,14 @@ export const authSlice = createSlice({
             message.info('Good bye')
             state = initialState
         },
+        changeEmail: (state, action) => {
+            const newUserInfo = { ...state, email: action.payload }
+            localStorage.setItem('user', JSON.stringify(newUserInfo))
+            return newUserInfo
+        },
     },
 })
 
-export const { loginSuccess, logout } = authSlice.actions
+export const { loginSuccess, logout, changeEmail } = authSlice.actions
 
 export default authSlice.reducer

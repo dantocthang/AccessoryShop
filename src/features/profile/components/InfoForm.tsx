@@ -12,6 +12,8 @@ import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import User from '../../../model/user'
 import { useMutation } from '@tanstack/react-query'
 import { updateInfo } from '../services'
+import { useDispatch } from 'react-redux'
+import { changeEmail } from '../../../app/slices/authSlice'
 const cl = classNames.bind(styles)
 const { Option } = Select
 
@@ -30,17 +32,17 @@ const ValidationSchema = Yup.object().shape({
 })
 
 function FormComp({ user }: Props) {
+    const dispatch = useDispatch()
     const updateProfileMutation = useMutation(updateInfo, {
         onSuccess: (data) => {
-            console.log(data)
             if (data.status === 200) message.success(data.data.message)
             else message.error('Something went wrong!')
         },
     })
     const handleSubmit = async (values: any) => {
         updateProfileMutation.mutate(values)
+        dispatch(changeEmail(values.email))
     }
-    console.log(user)
     return (
         <Formik
             initialValues={{

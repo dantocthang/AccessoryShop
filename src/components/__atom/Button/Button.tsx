@@ -13,6 +13,7 @@ interface Props {
     leftIcon?: React.ReactNode
     htmlType?: string
     loading?: boolean
+    disabled?: boolean
     children: React.ReactNode
     className?: string
     onClick?: Function
@@ -25,6 +26,7 @@ function Button({
     leftIcon,
     htmlType,
     loading,
+    disabled,
     onClick,
     children,
     className,
@@ -39,6 +41,7 @@ function Button({
             className={`${className} ${cl('wrapper', type, size, {
                 icon: !!leftIcon,
                 loading: loading,
+                disabled: disabled,
             })}`}
             to={to}
             onClick={onClick}

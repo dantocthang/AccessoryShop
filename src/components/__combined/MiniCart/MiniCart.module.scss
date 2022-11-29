@@ -5,6 +5,7 @@
     gap: 16px;
     width: 280px;
 
+   
 }
 
 .sub-total {
@@ -45,6 +46,9 @@
 .item-delete {
     font-size: 1.1rem;
     color: var(--text-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
         color: var(--primary-1);

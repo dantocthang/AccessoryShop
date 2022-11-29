@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { getCart } from '../../services'
@@ -14,7 +14,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { createOrder } from './services'
 import { createAddress, getAddresses } from '../../services'
 import Address from '../../model/address'
-import { goPayment } from '../payment/services'
+import { goPayment } from './services'
 const cl = classNames.bind(styles)
 
 const { Option } = Select
@@ -55,24 +55,21 @@ function Checkout() {
 
     const goPaymentMutation = useMutation(goPayment, {
         onSuccess: (data) => {
-            console.log(data)
             if (data.status === 200) {
                 window.location.href = data.data
             }
-            message.success('Order paid successfully!')
+            // message.success('Order paid successfully!')
         },
     })
 
     const createOrderMutation = useMutation(createOrder, {
         onSuccess: (data) => {
-            console.log(data)
             message.success('Order created successfully!')
             goPaymentMutation.mutate({
                 invoice_id: data.data.invoiceId,
                 user_id: user.id,
                 method,
             })
-            // navigate(`/payment/${data.data.invoiceId}`)
         },
     })
 
@@ -90,8 +87,14 @@ function Checkout() {
                 user_id: user.id,
                 address_id: address_id,
             })
-        // Create order
     }
+
+    useEffect(() => {
+        if (cartQuery?.data?.length === 0) {
+            message.warning('Nothing to checkout!')
+            navigate('/cart')
+        }
+    }, [])
 
     return (
         <div className={cl('wrapper')}>

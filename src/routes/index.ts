@@ -4,7 +4,6 @@ import Home from '../features/home'
 import Detail from '../features/detail'
 import Cart from '../features/cart'
 import Checkout from '../features/checkout'
-import Payment from '../features/payment'
 import PaymentSuccess from '../features/payment-success'
 import PaymentFailed from '../features/payment-failed'
 import List from '../features/list'
@@ -24,52 +23,73 @@ import AdminLayout from '../layouts/AdminLayout'
 const routes = [
     { path: '/', component: Home, layout: HomeLayout },
     { path: '/product', component: List },
-    { path: '/cart', component: Cart },
-    { path: '/checkout', component: Checkout },
-    { path: '/payment/:invoiceId', component: Payment },
-    { path: '/payment-success', component: PaymentSuccess },
-    { path: '/payment-failed', component: PaymentFailed },
+    { path: '/cart', component: Cart, role: 'user' },
+    { path: '/checkout', component: Checkout, role: 'user' },
+    { path: '/payment-success', component: PaymentSuccess, role: 'user' },
+    { path: '/payment-failed', component: PaymentFailed, role: 'user' },
     { path: '/login', component: Login },
     { path: '/register', component: Register },
-    { path: '/profile', component: Profile },
-    { path: '/admin/order', component: Order , layout: AdminLayout},
+    { path: '/profile', component: Profile, role: 'user' },
+    {
+        path: '/admin/order',
+        component: Order,
+        layout: AdminLayout,
+        role: 'admin',
+    },
     { path: '/product/:id', component: Detail },
     {
         path: '/admin/brand/create',
         component: CreateBrand,
         layout: AdminLayout,
+        role: 'admin',
     },
-    { path: '/admin/brand/list', component: ListBrand, layout: AdminLayout },
-    { path: '/admin/brand/:id', component: EditBrand, layout: AdminLayout },
+    {
+        path: '/admin/brand/list',
+        component: ListBrand,
+        layout: AdminLayout,
+        role: 'admin',
+    },
+    {
+        path: '/admin/brand/:id',
+        component: EditBrand,
+        layout: AdminLayout,
+        role: 'admin',
+    },
     {
         path: '/admin/category/create',
         component: CreateCategory,
         layout: AdminLayout,
+        role: 'admin',
     },
     {
         path: '/admin/category/list',
         component: ListCategory,
         layout: AdminLayout,
+        role: 'admin',
     },
     {
         path: '/admin/category/:id',
         component: EditCategory,
         layout: AdminLayout,
+        role: 'admin',
     },
     {
         path: '/admin/product/create',
         component: CreateProduct,
         layout: AdminLayout,
+        role: 'admin',
     },
     {
         path: '/admin/product/list',
         component: ListProduct,
         layout: AdminLayout,
+        role: 'admin',
     },
     {
         path: '/admin/product/:id',
         component: EditProduct,
         layout: AdminLayout,
+        role: 'admin',
     },
 ]
 

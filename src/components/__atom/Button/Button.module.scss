@@ -20,7 +20,8 @@
         display: flex;
         justify-content: flex-start;
         gap: 10px;
-        .spin{
+
+        .spin {
             line-height: 10px;
         }
     }
@@ -68,5 +69,10 @@
         font-size: 16px;
     }
 
+    &.disabled {
+        pointer-events: none;
+        filter: brightness(80%);
+        cursor: not-allowed;
+    }
 
 }

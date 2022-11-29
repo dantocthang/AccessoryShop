@@ -99,6 +99,7 @@ function Cart() {
                                 size='large'
                                 type='primary'
                                 className={cl('checkout')}
+                                to='/checkout'
                             >
                                 PROCEED TO CHECKOUT
                             </Button>

@@ -8,6 +8,17 @@
 
 .item {
     font-size: 14px;
+
+    &:hover {
+        color: var(--primary-1);
+    }
+}
+
+.name{
+    font-size: 18px;
+    color: var(--primary-1);
+    font-weight: 500;
+    text-align: right;
 }
 
 .icon {

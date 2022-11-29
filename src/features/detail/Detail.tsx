@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import { Breadcrumb, Image, InputNumber, Spin } from 'antd'
+import { Breadcrumb, Image, InputNumber, message, Spin } from 'antd'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { useAppSelector } from '../../hooks'
@@ -10,6 +10,7 @@ import { addToCart } from '../../services'
 
 import classNames from 'classnames/bind'
 import styles from './Detail.module.scss'
+import User from '../../model/user'
 const cl = classNames.bind(styles)
 
 interface Props {
@@ -20,12 +21,14 @@ function Detail() {
     const queryClient = useQueryClient()
     const [quantity, setQuantity] = useState(1)
     const navigate = useNavigate()
-    const user = useAppSelector((state) => state.auth)
+    const user: User = useAppSelector((state) => state.auth)
     const { id } = useParams()
     const productQuery = useQuery(['product'], () => getProductById({ id }))
 
     const addToCartMutation = useMutation(addToCart, {
         onSuccess: (data) => {
+            if (data.status === 201) message.success('Added to cart')
+            else message.error('Product is out of stock')
             queryClient.invalidateQueries(['cart'])
         },
     })
@@ -101,6 +104,7 @@ function Detail() {
                                     size='large'
                                     type='primary'
                                     onClick={handleAddToCart}
+                                    disabled={productQuery.data.stock === 0}
                                 >
                                     Add to cart
                                 </Button>
