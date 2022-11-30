@@ -91,14 +91,13 @@ function Header() {
                                 </NavLink>
 
                                 <div className={cl('nav-item-extend')}>
+                                    <LinkItem to='/profile' title='Profile' />
                                     <LinkItem to='/cart' title='Cart' />
-                                    <LinkItem to='/contact' title='Contact' />
-                                    <LinkItem to='/about' title='About us' />
                                 </div>
                             </div>
                             <div className={cl('nav-item')}>
                                 <NavLink
-                                    to='/shop'
+                                    to='/product'
                                     className={(state) =>
                                         cl({
                                             active: state.isActive,
@@ -109,7 +108,7 @@ function Header() {
                                 </NavLink>
 
                                 <div className={cl('nav-item-extend')}>
-                                    <LinkItem to='/product' title='List' />
+                                    <LinkItem to='/product' title='All products' />
                                 </div>
                             </div>
                             <div className={cl('nav-item')}>
@@ -123,10 +122,6 @@ function Header() {
                                 >
                                     CONTACT
                                 </NavLink>
-
-                                <div className={cl('nav-item-extend')}>
-                                    content
-                                </div>
                             </div>
                         </div>
                     </div>

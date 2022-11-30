@@ -4,6 +4,7 @@ import Home from '../features/home'
 import Detail from '../features/detail'
 import Cart from '../features/cart'
 import Checkout from '../features/checkout'
+import Invoice from '../features/user-order'
 import PaymentSuccess from '../features/payment-success'
 import PaymentFailed from '../features/payment-failed'
 import List from '../features/list'
@@ -25,6 +26,7 @@ const routes = [
     { path: '/product', component: List },
     { path: '/cart', component: Cart, role: 'user' },
     { path: '/checkout', component: Checkout, role: 'user' },
+    { path: '/invoice', component: Invoice, role: 'user' },
     { path: '/payment-success', component: PaymentSuccess, role: 'user' },
     { path: '/payment-failed', component: PaymentFailed, role: 'user' },
     { path: '/login', component: Login },

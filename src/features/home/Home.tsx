@@ -8,12 +8,11 @@ import styles from './Home.module.scss'
 const cl = classNames.bind(styles)
 
 function Home() {
-    const user = useAppSelector(state=>state.auth)
-    console.log(user)
+    const user = useAppSelector((state) => state.auth)
     return (
         <div className={cl('wrapper')}>
             <Carousel />
-            <List />    
+            <List />
         </div>
     )
 }

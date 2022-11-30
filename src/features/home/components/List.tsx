@@ -8,6 +8,7 @@ import Product from '../../../model/product'
 import classNames from 'classnames/bind'
 import styles from '../Home.module.scss'
 import { Spin } from 'antd'
+import Button from '../../../components/__atom/Button'
 const cl = classNames.bind(styles)
 
 function List() {
@@ -32,6 +33,9 @@ function List() {
                         ))
                     )}
                 </div>
+                <Button className={cl('see')} to='/product' type='outline'>
+                    SEE ALL
+                </Button>
             </div>
         </div>
     )

@@ -5,6 +5,7 @@ import {
     LoginOutlined,
     LogoutOutlined,
     DashboardOutlined,
+    CreditCardOutlined,
 } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 
@@ -31,6 +32,10 @@ function UserMenu({}: Props) {
                     <Link to='/cart' className={cl('item')}>
                         <ShoppingOutlined className={cl('icon')} />
                         Cart
+                    </Link>
+                    <Link to='/invoice' className={cl('item')}>
+                        <CreditCardOutlined className={cl('icon')} />
+                        Orders
                     </Link>
                     <Link to='/profile' className={cl('item')}>
                         <UserOutlined className={cl('icon')} />
