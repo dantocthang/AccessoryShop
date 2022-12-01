@@ -23,6 +23,7 @@ function Pagination({
     pages,
     onFetchNewData = () => {},
 }: Props) {
+
     return (
         <div className={cl('wrapper')}>
             <ul className={cl('list')}>

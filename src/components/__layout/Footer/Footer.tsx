@@ -49,12 +49,50 @@ function Footer() {
                         <div className='col l-3 m-4 c-6'>
                             <div className={cl('column')}>
                                 <div className={cl('heading')}>About us</div>
-                                <div className={cl('text')}>
-                                    Lorem ipsum dolor sit amet conse ctetur
-                                    adipisicing elit, sed do eiusmod tempor ut
-                                    labore et dolore. Lorem ipsum dolor amet
-                                    conse ctetur adipisicing elit, sedo eiusmod
-                                    tempor incididunt ut labore etdolore.
+                                <div className={cl('members')}>
+                                    <div className={cl('member')}>
+                                        <div className={cl('student-id')}>
+                                            B1910203
+                                        </div>
+                                        <div className={cl('student-name')}>
+                                            Trần Hữu Đan
+                                        </div>
+                                        <div className={cl('leader')}>
+                                            LEADER
+                                        </div>
+                                    </div>
+                                    <div className={cl('member')}>
+                                        <div className={cl('student-id')}>
+                                            B1910025
+                                        </div>
+                                        <div className={cl('student-name')}>
+                                            Nguyễn Quốc Vũ
+                                        </div>
+                                    </div>
+                                    <div className={cl('member')}>
+                                        <div className={cl('student-id')}>
+                                            B1909931
+                                        </div>
+                                        <div className={cl('student-name')}>
+                                            Lý Anh Khoa
+                                        </div>
+                                    </div>
+                                    <div className={cl('member')}>
+                                        <div className={cl('student-id')}>
+                                            B1910110
+                                        </div>
+                                        <div className={cl('student-name')}>
+                                            Võ Trọng Nghiêm
+                                        </div>
+                                    </div>
+                                    <div className={cl('member')}>
+                                        <div className={cl('student-id')}>
+                                            B1910452
+                                        </div>
+                                        <div className={cl('student-name')}>
+                                            Đoàn Hy Thiện
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
