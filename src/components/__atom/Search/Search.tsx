@@ -1,6 +1,6 @@
 import { CloseOutlined, SearchOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
-import { Empty, Input } from 'antd'
+import { Empty, Input, Spin } from 'antd'
 import Product from '../../../model/product'
 
 import classNames from 'classnames/bind'
@@ -12,6 +12,7 @@ interface Props {
     onChange: any
     className?: string
     visible: boolean
+    loading: boolean
     products: Product[]
     onClose: Function
     onSearch: Function
@@ -21,6 +22,7 @@ function Search({
     value,
     onChange,
     products,
+    loading = false,
     className,
     visible = false,
     onClose,
@@ -49,7 +51,9 @@ function Search({
                     </div>
                 </div>
                 <div className={cl('results')}>
-                    {products.length > 0 ? (
+                    {loading ? (
+                        <Spin className={cl('spin')} />
+                    ) : products.length > 0 ? (
                         products.map((x: Product) => (
                             <Link
                                 key={x.id}

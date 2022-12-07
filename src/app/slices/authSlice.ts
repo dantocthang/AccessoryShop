@@ -18,7 +18,7 @@ export const authSlice = createSlice({
         logout: (state) => {
             localStorage.removeItem('user')
             message.info('Good bye')
-            state = initialState
+            return initialState
         },
         changeEmail: (state, action) => {
             const newUserInfo = { ...state, email: action.payload }

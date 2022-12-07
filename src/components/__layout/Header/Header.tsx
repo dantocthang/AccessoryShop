@@ -17,22 +17,25 @@ import LinkItem from '../../__atom/LinkItem'
 import logo from '../../../assets/img/global/logo_primary.png'
 import classNames from 'classnames/bind'
 import styles from './Header.module.scss'
+import { useDebounce } from '../../../hooks'
 const cl = classNames.bind(styles)
 
 function Header() {
     const [searchVisible, setSearchVisible] = useState(false)
     const [searchValue, setSearchValue] = useState('')
+    const searchDebounced = useDebounce(searchValue, 600)
 
     const searchQuery = useQuery(
-        ['search-products', searchValue],
-        () => search(searchValue),
+        ['search-products', searchDebounced],
+        () => search(searchDebounced),
         {
             staleTime: 30000,
             cacheTime: 60000,
             refetchOnWindowFocus: false,
-            enabled: searchValue.length > 0,
+            enabled: searchDebounced.length > 0,
         }
     )
+    console.log(searchQuery)
 
     const handleSearch = () => {}
     return (
@@ -108,7 +111,10 @@ function Header() {
                                 </NavLink>
 
                                 <div className={cl('nav-item-extend')}>
-                                    <LinkItem to='/product' title='All products' />
+                                    <LinkItem
+                                        to='/product'
+                                        title='All products'
+                                    />
                                 </div>
                             </div>
                             <div className={cl('nav-item')}>
@@ -134,6 +140,9 @@ function Header() {
                     onSearch={() => {}}
                     visible={searchVisible}
                     className={cl('search')}
+                    loading={
+                        searchDebounced.length > 0 && searchQuery.isLoading
+                    }
                 />
             </div>
         </div>

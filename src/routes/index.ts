@@ -9,6 +9,7 @@ import PaymentSuccess from '../features/payment-success'
 import PaymentFailed from '../features/payment-failed'
 import List from '../features/list'
 import Order from '../features/order'
+import Dashboard from '../features/dashboard'
 import { CreateBrand, ListBrand, EditBrand } from '../features/brand'
 import {
     CreateCategory,
@@ -32,6 +33,12 @@ const routes = [
     { path: '/login', component: Login },
     { path: '/register', component: Register },
     { path: '/profile', component: Profile, role: 'user' },
+    {
+        path: '/admin/dashboard',
+        component: Dashboard,
+        layout: AdminLayout,
+        role: 'admin',
+    },
     {
         path: '/admin/order',
         component: Order,

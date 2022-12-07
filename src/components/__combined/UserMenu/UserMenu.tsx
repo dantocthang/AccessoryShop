@@ -12,12 +12,19 @@ import { Link } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import styles from './UserMenu.module.scss'
 import { useAppSelector } from '../../../hooks'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../../app/slices/authSlice'
 const cl = classNames.bind(styles)
 
 interface Props {}
 
 function UserMenu({}: Props) {
     const user = useAppSelector((state) => state.auth)
+    const dispatch = useDispatch()
+
+    const handleLogout = () => {
+        dispatch(logout())
+    }
     return (
         <div className={cl('wrapper')}>
             {user.hasOwnProperty('id') ? (
@@ -42,10 +49,10 @@ function UserMenu({}: Props) {
                         Account
                     </Link>
 
-                    <Link to='/logout' className={cl('item')}>
+                    <div onClick={handleLogout} className={cl('item')}>
                         <LogoutOutlined className={cl('icon')} />
                         Logout
-                    </Link>
+                    </div>
                 </>
             ) : (
                 <>

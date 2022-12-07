@@ -20,7 +20,7 @@ function Sidebar() {
                 size='large'
                 className={cl('item')}
                 leftIcon={<DashboardOutlined />}
-                to='/admin/home'
+                to='/admin/dashboard'
             >
                 Dashboard
             </Button>
