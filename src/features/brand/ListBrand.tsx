@@ -7,6 +7,7 @@ import Wrapper from '../../components/__atom/FormWrapper'
 import { Edit, Delete } from '../../components/__atom/ActionIcon'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { deleteBrand, getBrands } from './service'
+import { AxiosError } from 'axios'
 
 interface DataType {
     key: string
@@ -20,8 +21,11 @@ function ListBrand() {
     const deleteBrandMutation = useMutation(deleteBrand, {
         onSuccess: (data) => {
             if (data.status === 200) message.success('Brand deleted')
-            else message.error('Something went wrong!')
             brandQuery.refetch()
+        },
+        onError: (error: any) => {
+            if (error?.response?.status >= 400)
+                message.error(error.response.data)
         },
     })
 

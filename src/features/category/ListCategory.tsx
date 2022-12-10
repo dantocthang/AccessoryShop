@@ -24,6 +24,10 @@ function ListCategory() {
             else message.error('Something went wrong!')
             categoryQuery.refetch()
         },
+        onError: (error: any) => {
+            if (error?.response?.status >= 400)
+                message.error(error.response.data)
+        },
     })
 
     const columns: ColumnsType<DataType> = [

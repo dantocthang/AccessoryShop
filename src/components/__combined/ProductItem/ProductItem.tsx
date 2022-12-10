@@ -25,7 +25,8 @@ function ProductItem({ id, name, price, imageUrl, category, stock }: Props) {
     const user = useAppSelector((state) => state.auth)
     const addToCartMutation = useMutation(addToCart, {
         onSuccess: (data) => {
-            if (data.status === 201) message.success('Added to cart')
+            if (data.status === 200 || data.status === 201)
+                message.success('Added to cart')
             else message.error('Product is out of stock')
             queryClient.invalidateQueries(['cart'])
         },

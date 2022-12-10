@@ -27,7 +27,8 @@ function Detail() {
 
     const addToCartMutation = useMutation(addToCart, {
         onSuccess: (data) => {
-            if (data.status === 201) message.success('Added to cart')
+            if (data.status === 200 || data.status === 201)
+                message.success('Added to cart')
             else message.error('Product is out of stock')
             queryClient.invalidateQueries(['cart'])
         },

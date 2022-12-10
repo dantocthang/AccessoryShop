@@ -1,16 +1,17 @@
-import { Breadcrumb, Input } from 'antd'
+import { Breadcrumb, Input, message } from 'antd'
 import Button from '../../components/__atom/Button'
 import { Link } from 'react-router-dom'
 import { Form, Formik, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { useDispatch } from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { login } from './services'
 import { loginSuccess } from '../../app/slices/authSlice'
 
 import classNames from 'classnames/bind'
 import styles from './Login.module.scss'
+import { useMutation } from '@tanstack/react-query'
 const cl = classNames.bind(styles)
 
 const LoginSchema = Yup.object().shape({
@@ -24,13 +25,18 @@ const LoginSchema = Yup.object().shape({
 function Login() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const handleSubmit = async (values: any) => {
-        const res = await login(values)
-        if (res.status === 200) {
-            localStorage.setItem('token', res.data.accessToken)
-            dispatch(loginSuccess(res.data))
+    const loginMutation = useMutation(login, {
+        onSuccess: (data) => {
+            localStorage.setItem('token', data.data.accessToken)
+            dispatch(loginSuccess(data.data))
             navigate('/')
-        }
+        },
+        onError: (data) => {
+            message.error('Username or password is incorrect!')
+        },
+    })
+    const handleSubmit = async (values: any) => {
+        loginMutation.mutate(values)
     }
 
     return (

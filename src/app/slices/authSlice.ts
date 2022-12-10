@@ -18,6 +18,9 @@ export const authSlice = createSlice({
         logout: (state) => {
             localStorage.removeItem('user')
             message.info('Good bye')
+            const initialState: User = JSON.parse(
+                localStorage.getItem('user') || '{}'
+            )
             return initialState
         },
         changeEmail: (state, action) => {

@@ -43,18 +43,16 @@ function Total({
                 ></Item>
                 <Divider style={{ marginBlock: '10px' }} />
 
-                <Item label='Shipping' value='30000 VND'></Item>
+                <Item label='Shipping' value='Free'></Item>
                 <Divider style={{ marginBlock: '10px' }} />
 
                 <Item
                     label='Total'
-                    value={`${
-                        cart.reduce(
-                            (acc, item) =>
-                                (acc += item.product.price * item.quantity),
-                            0
-                        ) + 30000
-                    } VND`}
+                    value={`${cart.reduce(
+                        (acc, item) =>
+                            (acc += item.product.price * item.quantity),
+                        0
+                    )} VND`}
                     bold
                 ></Item>
                 <Divider style={{ marginBlock: '10px' }} />
